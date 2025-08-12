@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>POS Seniman Koding</title>
+	<title>POS SaaS Dekreatif.id</title>
 	<meta charset="UTF-8">
-	<meta name="description" content="POS Seniman Koding adalah Software Kasir dengan fitur lengkap dan support Multi cabang. POS Seniman Koding adalah software POS Kasir multi user dengan fitur yang mempuni. aplikasi kasir, software retail, software minimarket, aplikasi supermarket, aplikasi retail, aplikasi kasir online, aplikasi kasir berbasis website">
-	<meta name="keyword" content="POS Seniman Koding adalah Software Kasir dengan fitur lengkap dan support Multi cabang, aplikasi kasir, software retail, software minimarket, aplikasi supermarket, aplikasi retail, aplikasi kasir online, aplikasi kasir berbasis website">
+	<meta name="description" content="POS SaaS Dekreatif.id adalah Software Kasir dengan fitur lengkap dan support Multi cabang. POS SaaS Dekreatif.id adalah software POS Kasir multi user dengan fitur yang mempuni. aplikasi kasir, software retail, software minimarket, aplikasi supermarket, aplikasi retail, aplikasi kasir online, aplikasi kasir berbasis website">
+	<meta name="keyword" content="POS SaaS Dekreatif.id adalah Software Kasir dengan fitur lengkap dan support Multi cabang, aplikasi kasir, software retail, software minimarket, aplikasi supermarket, aplikasi retail, aplikasi kasir online, aplikasi kasir berbasis website">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<meta property="og:image" content="http://senimankoding.com/assets/img/logo.jpg" />
@@ -40,7 +40,7 @@
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="aksi/login" method="post">
 					<span class="login100-form-title p-b-43">
-						Login <b>POS Seniman Koding</b>
+						Login <b>POS SaaS Dekreatif.id</b>
 					</span>
 					
 					

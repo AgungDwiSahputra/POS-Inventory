@@ -516,7 +516,7 @@
 
   <section class="kasir-bo">
     <a href="beli-langsung?customer=<?= base64_encode(0); ?>">
-      <img src="dist/img/kasir.png" alt="POS Seniman Koding" class="img-fluid"> 
+      <img src="dist/img/kasir.png" alt="POS SaaS Dekreatif.id" class="img-fluid"> 
     </a>   
   </section>
 
