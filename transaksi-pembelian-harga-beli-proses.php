@@ -5,19 +5,19 @@
 	$barang_id              = $_POST['barang_id'];
 
 
-			if (empty($data['error'])) {
-					$query = "UPDATE keranjang_pembelian SET
-													keranjang_harga          = '$keranjang_harga'
-													WHERE keranjang_id = '$id'
-													";
+	if (empty($data['error'])) {
+		$query = "UPDATE keranjang_pembelian SET
+		keranjang_harga          = '$keranjang_harga'
+		WHERE keranjang_id = '$id'
+		";
 
-				mysqli_query($conn, $query)
-				or die ("Gagal Perintah SQL".mysql_error());
-				$data['hasil'] = 'sukses';
-		} else {
-			$data['hasil'] = 'gagal';
-		}
-		echo json_encode($data);
+		mysqli_query($conn, $query)
+		or die ("Gagal Perintah SQL".mysql_error());
+		$data['hasil'] = 'sukses';
+	} else {
+		$data['hasil'] = 'gagal';
+	}
+	echo json_encode($data);
 			
 		 
 	

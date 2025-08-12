@@ -436,7 +436,7 @@
               </div>
 
               <div class="text-center">
-                © <?= date("Y"); ?> Copyright www.senimankoding.com All rights reserved.
+                © <?= date("Y"); ?> Copyright <a href="developerdigital.web.id" target="_blank">Dev. Digital</a> - Cv. De Kreatif
               </div>
         </div>
     </section>

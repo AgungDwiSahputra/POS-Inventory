@@ -18,7 +18,7 @@
 $id = abs((int)base64_decode($_GET['id']));
 
 // query data mahasiswa berdasarkan id
-$barang = query("SELECT * FROM barang WHERE barang_id = $id ")[0];
+$barang = query("SELECT barang.*, sub_kategori.sub_kategori_nama FROM barang LEFT JOIN sub_kategori ON barang.barang_sub_kategori_id = sub_kategori.id WHERE barang.barang_id = $id ")[0];
 
 // cek apakah tombol submit sudah ditekan atau belum
 if( isset($_POST["submit"]) ){
@@ -97,7 +97,7 @@ if( isset($_POST["submit"]) ){
                           <div class="form-group ">
                               <label for="kategori_id" class="">Kategori</label>
                               <div class="">
-                                <select name="kategori_id" required="" class="form-control ">
+                                <select name="kategori_id" id="kategori_id" required="" class="form-control ">
                                   <?php  
                                       $kategori = $barang['kategori_id'];
                                       $kategoriParent = mysqli_query( $conn, "select kategori_nama from kategori where kategori_id = ".$kategori." && kategori_status > 0 && kategori_cabang = ".$sessionCabang." ");
@@ -120,6 +120,39 @@ if( isset($_POST["submit"]) ){
                                 </select>
                               </div>
                           </div>
+                          <!-- sub kategori (optional), nilainya berdasarkan kategori yang di pilih -->
+                          <div class="form-group">
+                              <label for="sub_kategori_id">Sub Kategori</label>
+                              <select name="sub_kategori_id" id="sub_kategori_id" class="form-control" <?php if ( $barang['barang_sub_kategori_id'] ) { echo ""; } else { echo "disabled"; } ?>>
+                                  <?php 
+                                    if ( $barang['barang_sub_kategori_id'] ) { 
+                                      echo '<option value="' . $barang['barang_sub_kategori_id'] . '">' . $barang['sub_kategori_nama'] . '</option>'; 
+                                    } else { 
+                                      echo '<option value="">--Pilih Kategori Dulu--</option>'; 
+                                    } 
+                                  ?>
+                              </select>
+                          </div>
+
+                          <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                document.getElementById('kategori_id').addEventListener('change', function() {
+
+                                    var kategori_id = this.value;
+                                    document.getElementById('sub_kategori_id').removeAttribute('disabled');
+
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('POST', 'sub_kategori-ajax.php', true);
+                                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                    xhr.onreadystatechange = function() {
+                                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                            document.getElementById('sub_kategori_id').innerHTML = xhr.responseText;
+                                        }
+                                    };
+                                    xhr.send('kategori_id=' + encodeURIComponent(kategori_id));
+                                });
+                            });
+                          </script>
                       </div>
 
                       <div class="col-md-6 col-lg-6">

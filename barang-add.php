@@ -44,6 +44,20 @@ if( isset($_POST["submit"]) ){
   
 }
 ?>
+
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kategori_id'])) {
+    $kategori_id = $_POST['kategori_id'];
+    $sub_kategoris = query("SELECT * FROM sub_kategori WHERE kategori_id = $kategori_id AND sub_kategori_status > 0 ORDER BY id DESC");
+
+    echo '<option value="">--Pilih Sub Kategori--</option>';
+    foreach ($sub_kategoris as $sub_kategori) {
+        echo '<option value="' . $sub_kategori['id'] . '">' . $sub_kategori['sub_kategori_nama'] . '</option>';
+    }
+    exit();
+}
+?>
   
   <?php 
       $barang = mysqli_query($conn,"select * from barang where barang_cabang = ".$sessionCabang." ");
@@ -120,7 +134,7 @@ if( isset($_POST["submit"]) ){
                               <label for="kategori_id" class="">Kategori</label>
                               <div class="">
                                 <?php $data = query("SELECT * FROM kategori WHERE kategori_cabang = $sessionCabang ORDER BY kategori_id DESC"); ?>
-                                <select name="kategori_id" required="" class="form-control ">
+                                <select id="kategori_id" name="kategori_id" required="" class="form-control ">
                                     <option value="">--Pilih Kategori--</option>
                                     <?php foreach ( $data as $row ) : ?>
                                       <?php if ( $row['kategori_status'] === '1' ) { ?>
@@ -132,6 +146,34 @@ if( isset($_POST["submit"]) ){
                                 </select>
                               </div>
                           </div>
+                          
+                          <!-- sub kategori (optional), nilainya berdasarkan kategori yang di pilih -->
+                          <div class="form-group">
+                              <label for="sub_kategori_id">Sub Kategori</label>
+                              <select name="sub_kategori_id" id="sub_kategori_id" class="form-control" disabled>
+                                  <option value="">--Pilih Kategori Dulu--</option>
+                              </select>
+                          </div>
+
+                          <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                document.getElementById('kategori_id').addEventListener('change', function() {
+
+                                    var kategori_id = this.value;
+                                    document.getElementById('sub_kategori_id').removeAttribute('disabled');
+
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('POST', 'sub_kategori-ajax.php', true);
+                                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                    xhr.onreadystatechange = function() {
+                                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                            document.getElementById('sub_kategori_id').innerHTML = xhr.responseText;
+                                        }
+                                    };
+                                    xhr.send('kategori_id=' + encodeURIComponent(kategori_id));
+                                });
+                            });
+                          </script>
                       </div>
 
                       <div class="col-md-6 col-lg-6">
@@ -333,6 +375,7 @@ if( isset($_POST["submit"]) ){
 
 
 <?php include '_footer.php'; ?>
+
 <script>
     function hanyaAngka(evt) {
       var charCode = (evt.which) ? evt.which : event.keyCode

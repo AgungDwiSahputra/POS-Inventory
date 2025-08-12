@@ -1,7 +1,7 @@
 <footer class="main-footer">
-    <strong>© <?= date("Y"); ?> Copyright <a href="http://www.senimankoding.com/" target="_blank">www.senimankoding.com</a> All rights reserved.
+    <strong>© <?= date("Y"); ?> Copyright <a href="developerdigital.web.id" target="_blank">Dev. Digital</a> - Cv. De Kreatif
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 0.7
+        <b>Version</b> 25.08.09
     </div>
   </footer>
 

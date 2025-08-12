@@ -376,7 +376,7 @@
                                 Powered By
                             </div>
                             <div class="nbf-url">
-                                www.senimankoding.com
+                                <a href="developerdigital.web.id" target="_blank">Dev. Digital</a> - Cv. De Kreatif
                             </div>
                         </div>
                     </div>

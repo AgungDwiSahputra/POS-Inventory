@@ -71,7 +71,7 @@
 					
 					<div class="text-center p-t-46 p-b-20">
 						<span class="txt2">
-							<a href="http://senimankoding.com/" target="_blank">www.senimankoding.com</a>
+							<a href="developerdigital.web.id" target="_blank">Dev. Digital</a> - Cv. De Kreatif
 						</span>
 					</div>
 				</form>

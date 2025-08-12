@@ -468,40 +468,41 @@ function hapusEkspedisi($id) {
 function tambahBarang($data) {
 	global $conn;
 	// ambil data dari tiap elemen dalam form
-	$barang_kode      			= htmlspecialchars($data["barang_kode"]);
+	$barang_kode      			= htmlspecialchars($data["barang_kode"] ?? '');
 	$barang_kode_slug			= str_replace(" ", "-", $barang_kode);
-	$barang_kode_count  		= htmlspecialchars($data["barang_kode_count"]);
-	$barang_nama      			= htmlspecialchars($data["barang_nama"]);
-	$barang_deskripsi 			= htmlspecialchars($data["barang_deskripsi"]);
+	$barang_kode_count  		= htmlspecialchars($data["barang_kode_count"] ?? '');
+	$barang_nama      			= htmlspecialchars($data["barang_nama"] ?? '');
+	$barang_deskripsi 			= htmlspecialchars($data["barang_deskripsi"] ?? '');
 
-	$barang_harga     			= htmlspecialchars($data["barang_harga"]);
-	$barang_harga_grosir_1     	= htmlspecialchars($data["barang_harga_grosir_1"]);
-	$barang_harga_grosir_2     	= htmlspecialchars($data["barang_harga_grosir_2"]);
+	$barang_harga     			= htmlspecialchars($data["barang_harga"] ?? '');
+	$barang_harga_grosir_1     	= htmlspecialchars($data["barang_harga_grosir_1"] ?? '');
+	$barang_harga_grosir_2     	= htmlspecialchars($data["barang_harga_grosir_2"] ?? '');
 
-	$barang_harga_s2     		= htmlspecialchars($data["barang_harga_s2"]);
-	$barang_harga_grosir_1_s2   = htmlspecialchars($data["barang_harga_grosir_1_s2"]);
-	$barang_harga_grosir_2_s2   = htmlspecialchars($data["barang_harga_grosir_2_s2"]);
+	$barang_harga_s2     		= htmlspecialchars($data["barang_harga_s2"] ?? '');
+	$barang_harga_grosir_1_s2   = htmlspecialchars($data["barang_harga_grosir_1_s2"] ?? '');
+	$barang_harga_grosir_2_s2   = htmlspecialchars($data["barang_harga_grosir_2_s2"] ?? '');
 
-	$barang_harga_s3     		= htmlspecialchars($data["barang_harga_s3"]);
-	$barang_harga_grosir_1_s3   = htmlspecialchars($data["barang_harga_grosir_1_s3"]);
-	$barang_harga_grosir_2_s3   = htmlspecialchars($data["barang_harga_grosir_2_s3"]);
+	$barang_harga_s3     		= htmlspecialchars($data["barang_harga_s3"] ?? '');
+	$barang_harga_grosir_1_s3   = htmlspecialchars($data["barang_harga_grosir_1_s3"] ?? '');
+	$barang_harga_grosir_2_s3   = htmlspecialchars($data["barang_harga_grosir_2_s3"] ?? '');
 
-	$kategori_id      			= $data["kategori_id"];
+	$kategori_id      			= $data["kategori_id"] ?? 0;
+	$sub_kategori_id      		= isset($data["sub_kategori_id"]) ? (int)$data["sub_kategori_id"] : null;
 
 
-	$satuan_id        			= $data["satuan_id"];
-	$satuan_id_2        		= $data["satuan_id_2"];
-	$satuan_id_3        		= $data["satuan_id_3"];
+	$satuan_id        			= $data["satuan_id"] ?? 0;
+	$satuan_id_2        		= (int)$data["satuan_id_2"] ?? 0;
+	$satuan_id_3        		= (int)$data["satuan_id_3"] ?? 0;
 
 	$satuan_isi_1 				= 1;
-	$satuan_isi_2        		= $data["satuan_isi_2"];
-	$satuan_isi_3        		= $data["satuan_isi_3"];
+	$satuan_isi_2        		= (int)$data["satuan_isi_2"] ?? 0;
+	$satuan_isi_3        		= (int)$data["satuan_isi_3"] ?? 0;
 
 
 	$barang_tanggal   			= date("d F Y g:i:s a");
-	$barang_stock     			= htmlspecialchars($data["barang_stock"]);
-	$barang_option_sn 			= $data["barang_option_sn"];
-	$barang_cabang				= $data["barang_cabang"];
+	$barang_stock     			= htmlspecialchars($data["barang_stock"] ?? '');
+	$barang_option_sn 			= $data["barang_option_sn"] ?? 0;
+	$barang_cabang				= $data["barang_cabang"] ?? 0;
 
 	// Cek Email
 	$barang_kode_cek = mysqli_num_rows(mysqli_query($conn, "select * from barang where barang_kode = '".$barang_kode."' && barang_cabang = ".$barang_cabang." "));
@@ -514,8 +515,31 @@ function tambahBarang($data) {
 		";
 	} else {
 		// query insert data
-		$query = "INSERT INTO barang VALUES ('', '$barang_kode', '$barang_kode_slug', '$barang_kode_count', '$barang_nama', '','$barang_harga', '$barang_harga_grosir_1', '$barang_harga_grosir_2', '$barang_harga_s2', '$barang_harga_grosir_1_s2', '$barang_harga_grosir_2_s2', '$barang_harga_s3', '$barang_harga_grosir_1_s3', '$barang_harga_grosir_2_s3', '$barang_stock', '$barang_tanggal', '$kategori_id', '$kategori_id', '$satuan_id', '$satuan_id', '$satuan_id_2', '$satuan_id_3', '$satuan_isi_1', '$satuan_isi_2', '$satuan_isi_3', '$barang_deskripsi', '$barang_option_sn', '', '$barang_cabang')";
+		$query = "INSERT INTO barang (
+			barang_kode, barang_kode_slug, barang_kode_count, barang_nama, 
+			barang_harga_beli, barang_harga, barang_harga_grosir_1, barang_harga_grosir_2, 
+			barang_harga_s2, barang_harga_grosir_1_s2, barang_harga_grosir_2_s2, 
+			barang_harga_s3, barang_harga_grosir_1_s3, barang_harga_grosir_2_s3, 
+			barang_stock, barang_tanggal, barang_kategori_id, barang_sub_kategori_id, 
+			kategori_id, barang_satuan_id, satuan_id, satuan_id_2, satuan_id_3, 
+			satuan_isi_1, satuan_isi_2, satuan_isi_3, barang_deskripsi, 
+			barang_option_sn, barang_terjual, barang_cabang
+		) VALUES (
+			'$barang_kode', '$barang_kode_slug', '$barang_kode_count', '$barang_nama', 
+			'', '$barang_harga', '$barang_harga_grosir_1', '$barang_harga_grosir_2', 
+			'$barang_harga_s2', '$barang_harga_grosir_1_s2', '$barang_harga_grosir_2_s2', 
+			'$barang_harga_s3', '$barang_harga_grosir_1_s3', '$barang_harga_grosir_2_s3', 
+			'$barang_stock', '$barang_tanggal', '$kategori_id', $sub_kategori_id, 
+			'$kategori_id', '$satuan_id', '$satuan_id', '$satuan_id_2', '$satuan_id_3', 
+			'$satuan_isi_1', '$satuan_isi_2', '$satuan_isi_3', '$barang_deskripsi', 
+			'$barang_option_sn', 0, '$barang_cabang'
+		)";
 		mysqli_query($conn, $query);
+
+		if (mysqli_errno($conn)) {
+			echo "Error: " . mysqli_error($conn);
+			exit;
+		}
 
 		return mysqli_affected_rows($conn);
 	}
@@ -544,6 +568,7 @@ function editBarang($data) {
 	$barang_harga_grosir_2_s3   = htmlspecialchars($data["barang_harga_grosir_2_s3"]);
 
 	$kategori_id      			= $data["kategori_id"];
+	$sub_kategori_id      		= isset($data["sub_kategori_id"]) ? (int)$data["sub_kategori_id"] : 0;
 
 	$satuan_id        			= $data["satuan_id"];
 	$satuan_id_2        		= $data["satuan_id_2"];
@@ -577,6 +602,7 @@ function editBarang($data) {
 				barang_harga_grosir_2_s3= '$barang_harga_grosir_2_s3',
 				barang_stock      		= '$barang_stock',
 				barang_kategori_id      = '$kategori_id',
+				barang_sub_kategori_id	= '$sub_kategori_id',
 				kategori_id       		= '$kategori_id',
 				satuan_id         		= '$satuan_id',
 				satuan_id_2         	= '$satuan_id_2',
@@ -588,6 +614,12 @@ function editBarang($data) {
 				WHERE barang_id   		= $id
 				";
 	mysqli_query($conn, $query);
+
+	if (mysqli_errno($conn)) {
+		echo "Error: " . mysqli_error($conn);
+		exit;
+	}
+	
 	return mysqli_affected_rows($conn);
 }
 
@@ -3090,11 +3122,11 @@ function tambahKeranjangPembelian($barang_id, $keranjang_nama, $keranjang_harga,
 							WHERE keranjang_id_cek = $keranjang_id_cek
 							";
 			mysqli_query($conn, $query);
+			
 			return mysqli_affected_rows($conn);
-
 		} else {
 			// query insert data
-			$query = "INSERT INTO keranjang_pembelian VALUES ('', '$keranjang_nama', '$keranjang_harga', '$barang_id', '$keranjang_qty', '$keranjang_id_kasir', '$keranjang_id_cek', '$keranjang_cabang')";
+			$query = "INSERT INTO keranjang_pembelian (keranjang_nama, keranjang_harga, barang_id, keranjang_qty, keranjang_id_kasir, keranjang_id_cek, keranjang_cabang) VALUES ('$keranjang_nama', '$keranjang_harga', '$barang_id', '$keranjang_qty', '$keranjang_id_kasir', '$keranjang_id_cek', '$keranjang_cabang')";
 			
 			mysqli_query($conn, $query);
 
@@ -3193,74 +3225,113 @@ function updateQTYpembelian($data) {
 // ============================================== Transaksi Pembelian ======================== //
 function updateStockPembelian($data) {
 	global $conn;
-	$id                  = $data["barang_ids"];
-	$keranjang_qty       = $data["keranjang_qty"];
-	$keranjang_id_kasir  = $data['keranjang_id_kasir'];
-	$pembelian_invoice   = $data['pembelian_invoice'];
-	$kik                 = $data['kik'];
-	$barang_harga_beli   = $data['barang_harga_beli'];
-	$pembelian_invoice_parent = $data['pembelian_invoice_parent'];
-	$invoice_pembelian_cabang = $data['invoice_pembelian_cabang'];
+	$barangIds                = $data["barang_ids"];
+	$keranjangQtys            = $data["keranjang_qty"];
+	$keranjangIdKasirs        = $data['keranjang_id_kasir'];
+	$pembelianInvoices        = $data['pembelian_invoice'];
+	$kiks                     = $data['kik'];
+	$barangHargaBelis         = $data['barang_harga_beli'];
+	$pembelianInvoiceParents  = $data['pembelian_invoice_parent'];
+	$invoicePembelianCabangs  = $data['invoice_pembelian_cabang'];
 
-	$pembelian_invoice2  = $data['pembelian_invoice2'];
-	$invoice_tgl         = date("d F Y g:i:s a");
-	$invoice_supplier    = $data['invoice_supplier'];
-	$invoice_total       = $data['invoice_total'];
-	$invoice_bayar       = $data['angka1'];
-	$invoice_kembali     = $invoice_bayar - $invoice_total;
-	$invoice_date        = date("Y-m-d");
-	$pembelian_date      = $data['pembelian_date'];
-	$invoice_pembelian_number_delete = $data['invoice_pembelian_number_delete'];
-	$pembelian_invoice_parent2       = $data['pembelian_invoice_parent2'];
-	$invoice_hutang				 	 = $data['invoice_hutang'];
-	if ( $invoice_hutang == 1 ) {
-		$invoice_hutang_dp = $invoice_bayar;
+	$pembelianInvoice2        = $data['pembelian_invoice2'];
+	$invoiceTgl               = date("d F Y g:i:s a");
+	$invoiceSuppliers         = $data['invoice_supplier'];
+	$invoiceTotals            = $data['invoice_total'];
+	$invoiceBayars            = $data['angka1'];
+	$invoiceKembalis          = $invoiceBayars - $invoiceTotals;
+	$invoiceDates             = date("Y-m-d");
+	$pembelianDates           = $data['pembelian_date'];
+	$invoicePembelianNumberDeletes = $data['invoice_pembelian_number_delete'];
+	$pembelianInvoiceParent2s = $data['pembelian_invoice_parent2'];
+	$invoiceHutangs           = $data['invoice_hutang'];
+	if ( $invoiceHutangs == 1 ) {
+		$invoiceHutangDps = $invoiceBayars;
 	} else {
-		$invoice_hutang_dp = 0;
+		$invoiceHutangDps = 0;
 	}
-	$invoice_hutang_jatuh_tempo	    = $data['invoice_hutang_jatuh_tempo'];
-	$invoice_hutang_lunas			= $data['invoice_hutang_lunas'];
-	$pembelian_cabang				= $data['pembelian_cabang'];
+	$invoiceHutangJatuhTempos = $data['invoice_hutang_jatuh_tempo'];
+	$invoiceHutangLunases     = $data['invoice_hutang_lunas'];
+	$pembelianCabangs         = $data['pembelian_cabang'];
 
-	$jumlah = count($keranjang_id_kasir);
+	$jumlah = count($keranjangIdKasirs);
 
 	// Cek No. Invoice
-	$invoice_cek = mysqli_num_rows(mysqli_query($conn, "select * from invoice_pembelian where pembelian_invoice = '$pembelian_invoice2' && invoice_pembelian_cabang = '$invoice_pembelian_cabang' "));
+	$invoiceCek = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM invoice_pembelian WHERE pembelian_invoice = '$pembelianInvoice2' AND invoice_pembelian_cabang = '$invoicePembelianCabangs'"));
 
-	if ( $invoice_cek > 0 ) {
+	if ( $invoiceCek > 0 ) {
 		echo "
 			<script>
 				alert('No. Invoice Pembelian Sudah Digunakan Sebelumnya !!');
 			</script>
 		";
 	} else {
-		// query insert invoice
-		$query1 = "INSERT INTO invoice_pembelian VALUES ('', '$pembelian_invoice2', '$pembelian_invoice_parent2', '$invoice_tgl', '$invoice_supplier', '$invoice_total', '$invoice_bayar', '$invoice_kembali', '$kik', '$invoice_date', ' ', ' ', '$invoice_total', '$invoice_bayar', '$invoice_kembali', '$invoice_hutang', '$invoice_hutang_dp', '$invoice_hutang_jatuh_tempo', '$invoice_hutang_lunas', '$invoice_pembelian_cabang')";
-		// var_dump($query1); die();
+		// Query insert invoice
+		$query1 = "INSERT INTO invoice_pembelian (pembelian_invoice, pembelian_invoice_parent, invoice_tgl, invoice_supplier, invoice_total, invoice_bayar, invoice_kembali, invoice_kasir, invoice_date, invoice_date_edit, invoice_kasir_edit, invoice_total_lama, invoice_bayar_lama, invoice_kembali_lama, invoice_hutang, invoice_hutang_dp, invoice_hutang_jatuh_tempo, invoice_hutang_lunas, invoice_pembelian_cabang) VALUES ('$pembelianInvoice2', '$pembelianInvoiceParent2s', '$invoiceTgl', '$invoiceSuppliers', '$invoiceTotals', '$invoiceBayars', '$invoiceKembalis', '$kiks', '$invoiceDates', '', '', '$invoiceTotals', '$invoiceBayars', '$invoiceKembalis', '$invoiceHutangs', '$invoiceHutangDps', '$invoiceHutangJatuhTempos', '$invoiceHutangLunases', '$invoicePembelianCabangs')";
 		mysqli_query($conn, $query1);
 
-
-		for( $x=0; $x<$jumlah; $x++ ){
-			$query = "INSERT INTO pembelian VALUES ('', '$id[$x]', '$id[$x]', '$keranjang_qty[$x]', '$keranjang_id_kasir[$x]', '$pembelian_invoice[$x]', '$pembelian_invoice_parent[$x]', '$pembelian_date[$x]', '$keranjang_qty[$x]', '$keranjang_qty[$x]', '$barang_harga_beli[$x]', '$pembelian_cabang[$x]')";
-			mysqli_query($conn, $query);
-
-			// Mencari Rata-rata Pembelian
-			$hargaBeli= mysqli_query($conn, "SELECT AVG(barang_harga_beli) AS average FROM pembelian WHERE barang_id = $id[$x]");
-            $hargaBeli = mysqli_fetch_assoc($hargaBeli);
-            $hargaBeli = ceil($hargaBeli['average']);
-
-            // Edit Data
-			$query2 = "UPDATE barang SET 
-						barang_harga_beli     = '$hargaBeli'
-						WHERE barang_id       = $id[$x]
-				";
-
-			mysqli_query($conn, $query2);
+		// Array untuk mengakumulasi qty dan data lain per barang_id unik
+		$aggregatedData = [];
+		for ($index = 0; $index < $jumlah; $index++) {
+			$barangId = $barangIds[$index];
+			if (!isset($aggregatedData[$barangId])) {
+				$aggregatedData[$barangId] = [
+					'qty' => 0,
+					'keranjang_id_kasir' => $keranjangIdKasirs[$index],
+					'pembelian_invoice' => $pembelianInvoices[$index],
+					'pembelian_invoice_parent' => $pembelianInvoiceParents[$index],
+					'pembelian_date' => $pembelianDates[$index],
+					'barang_harga_beli' => $barangHargaBelis[$index],
+					'pembelian_cabang' => $pembelianCabangs[$index],
+					'inserts' => []
+				];
+			}
+			$aggregatedData[$barangId]['qty'] += $keranjangQtys[$index];
+			$aggregatedData[$barangId]['inserts'][] = [
+				'qty' => $keranjangQtys[$index],
+				'keranjang_id_kasir' => $keranjangIdKasirs[$index],
+				'pembelian_invoice' => $pembelianInvoices[$index],
+				'pembelian_invoice_parent' => $pembelianInvoiceParents[$index],
+				'pembelian_date' => $pembelianDates[$index],
+				'barang_harga_beli' => $barangHargaBelis[$index],
+				'pembelian_cabang' => $pembelianCabangs[$index]
+			];
 		}
-		
 
-		mysqli_query( $conn, "DELETE FROM keranjang_pembelian WHERE keranjang_id_kasir = $kik");
-		mysqli_query( $conn, "DELETE FROM invoice_pembelian_number WHERE invoice_pembelian_number_delete = $invoice_pembelian_number_delete");
+		// Insert ke tabel pembelian
+		foreach ($aggregatedData as $barangId => $agg) {
+			foreach ($agg['inserts'] as $insertData) {
+				$query = "INSERT INTO pembelian (pembelian_barang_id, barang_id, barang_qty, keranjang_id_kasir, pembelian_invoice, pembelian_invoice_parent, pembelian_date, barang_qty_lama, barang_qty_lama_parent, barang_harga_beli, pembelian_cabang) VALUES ('$barangId', '$barangId', '{$insertData['qty']}', '{$insertData['keranjang_id_kasir']}', '{$insertData['pembelian_invoice']}', '{$insertData['pembelian_invoice_parent']}', '{$insertData['pembelian_date']}', '{$insertData['qty']}', '{$insertData['qty']}', '{$insertData['barang_harga_beli']}', '{$insertData['pembelian_cabang']}')";
+				mysqli_query($conn, $query);
+			}
+		}
+
+		// Update tabel barang setelah looping selesai
+		foreach ($aggregatedData as $barangId => $agg) {
+			// Get Data Barang
+			$QueryBarang = "SELECT * FROM barang WHERE barang_id = $barangId";
+			$QueryBarang = mysqli_query($conn, $QueryBarang);
+			$getBarang = mysqli_fetch_assoc($QueryBarang);
+
+			$oldStock = $getBarang['barang_stock'];
+			$oldHPP = ( $getBarang['hpp'] == null ) ? 0 : $getBarang['hpp'];
+			$oldBarangHargaBeli = ( $getBarang['barang_harga_beli'] == null ) ? 0 : $getBarang['barang_harga_beli'];
+
+			$newStockBarang = $oldStock + $agg['qty'];
+			$newHPP = ($oldBarangHargaBeli + ($agg['qty'] * $agg['barang_harga_beli'])) / $newStockBarang;
+
+			// Update Stock
+			$QueryUpdateStock = "UPDATE barang SET 
+									barang_stock = $newStockBarang, 
+									hpp = $newHPP,
+									barang_harga_beli = ($oldBarangHargaBeli + ({$agg['qty']} * {$agg['barang_harga_beli']})), 
+									barang_harga = {$agg['barang_harga_beli']}
+								WHERE barang_id = $barangId";
+			mysqli_query($conn, $QueryUpdateStock);
+		}
+
+		mysqli_query($conn, "DELETE FROM keranjang_pembelian WHERE keranjang_id_kasir = $kiks");
+		mysqli_query($conn, "DELETE FROM invoice_pembelian_number WHERE invoice_pembelian_number_delete = $invoicePembelianNumberDeletes");
 		return mysqli_affected_rows($conn);
 	}
 }
@@ -3727,7 +3798,7 @@ function tambahTransferSelectCabang($data) {
 
 	if ( $count < 1 ) {
 		// query insert data
-		$query = "INSERT INTO transfer_select_cabang VALUES ('', '$tsc_cabang_pusat', '$tsc_cabang_penerima', '$tsc_user_id', '$tsc_cabang')";
+		$query = "INSERT INTO transfer_select_cabang (tsc_cabang_pusat, tsc_cabang_penerima, tsc_user_id, tsc_cabang) VALUES ('$tsc_cabang_pusat', '$tsc_cabang_penerima', '$tsc_user_id', '$tsc_cabang')";
 		mysqli_query($conn, $query);
 	} else {
 		mysqli_query( $conn, "DELETE FROM transfer_select_cabang WHERE tsc_user_id = $tsc_user_id && tsc_cabang = $tsc_cabang");
@@ -3807,7 +3878,33 @@ function tambahkeranjangtransfer($data) {
 
 		} else {
 			// query insert data
-			$query = "INSERT INTO keranjang_transfer VALUES ('', '$keranjang_nama', '$barang_id', '$barang_kode_slug', '$keranjang_qty', '$keranjang_barang_sn_id', '$keranjang_barang_option_sn', '$keranjang_sn', '$keranjang_id_kasir', '$keranjang_id_cek', '$keranjang_cabang_pengirim', '$keranjang_cabang_tujuan', '$keranjang_cabang')";
+			$query = "INSERT INTO keranjang_transfer (
+				keranjang_transfer_nama,
+				barang_id,
+				barang_kode_slug,
+				keranjang_transfer_qty,
+				keranjang_barang_sn_id,
+				keranjang_barang_option_sn,
+				keranjang_sn,
+				keranjang_transfer_id_kasir,
+				keranjang_id_cek,
+				keranjang_pengirim_cabang,
+				keranjang_penerima_cabang,
+				keranjang_transfer_cabang
+			) VALUES (
+				'$keranjang_nama',
+				'$barang_id',
+				'$barang_kode_slug',
+				'$keranjang_qty',
+				'$keranjang_barang_sn_id',
+				'$keranjang_barang_option_sn',
+				'$keranjang_sn',
+				'$keranjang_id_kasir',
+				'$keranjang_id_cek',
+				'$keranjang_cabang_pengirim',
+				'$keranjang_cabang_tujuan',
+				'$keranjang_cabang'
+			)";
 			
 			mysqli_query($conn, $query);
 
@@ -3859,7 +3956,33 @@ function tambahKeranjangBarcodeTransfer($data) {
 
 		} else {
 			// query insert data
-			$query = "INSERT INTO keranjang_transfer VALUES ('', '$keranjang_nama', '$barang_id', '$barang_kode_slug', '$keranjang_qty', '$keranjang_barang_sn_id', '$keranjang_barang_option_sn', '$keranjang_sn', '$keranjang_id_kasir', '$keranjang_id_cek', '$keranjang_cabang_pengirim', '$keranjang_cabang_tujuan', '$keranjang_cabang')";
+			$query = "INSERT INTO keranjang_transfer (
+				keranjang_transfer_nama,
+				barang_id,
+				barang_kode_slug,
+				keranjang_transfer_qty,
+				keranjang_barang_sn_id,
+				keranjang_barang_option_sn,
+				keranjang_sn,
+				keranjang_transfer_id_kasir,
+				keranjang_id_cek,
+				keranjang_pengirim_cabang,
+				keranjang_penerima_cabang,
+				keranjang_transfer_cabang
+			) VALUES (
+				'$keranjang_nama',
+				'$barang_id',
+				'$barang_kode_slug',
+				'$keranjang_qty',
+				'$keranjang_barang_sn_id',
+				'$keranjang_barang_option_sn',
+				'$keranjang_sn',
+				'$keranjang_id_kasir',
+				'$keranjang_id_cek',
+				'$keranjang_cabang_pengirim',
+				'$keranjang_cabang_tujuan',
+				'$keranjang_cabang'
+			)";
 			
 			mysqli_query($conn, $query);
 
@@ -3988,45 +4111,76 @@ function prosesTransfer($data) {
 	$tpk_penerima_cabang        = $data['tpk_penerima_cabang'];
 	$tpk_cabang                 = $data['tpk_cabang'];
 
-
 	$jumlah = count($tpk_user);
 
 	// query insert invoice
-	$query1 = "INSERT INTO transfer VALUES ('', 
+	$query1 = "INSERT INTO transfer (
+							transfer_ref, 
+							transfer_count, 
+							transfer_date, 
+							transfer_date_time, 
+							transfer_terima_date, 
+							transfer_terima_date_time, 
+							transfer_note, 
+							transfer_pengirim_cabang, 
+							transfer_penerima_cabang, 
+							transfer_id_tipe_keluar, 
+							transfer_id_tipe_masuk, 
+							transfer_status, 
+							transfer_user, 
+							transfer_user_penerima, 
+							transfer_cabang
+							) VALUES (
 							'$transfer_ref', 
 							'$transfer_count', 
 							'$transfer_date', 
-							'$transfer_date_time',
-							'',
-							'', 
+							'$transfer_date_time', 
+							'-', 
+							'-', 
 							'$transfer_note', 
 							'$transfer_pengirim_cabang', 
-							'$transfer_penerima_cabang',
+							'$transfer_penerima_cabang', 
 							'$transfer_id_tipe_keluar', 
 							'$transfer_id_tipe_masuk', 
 							'$transfer_status', 
 							'$transfer_user', 
-							'',
-							'$transfer_cabang')";
-	// var_dump($query1); die();
+							0, 
+							'$transfer_cabang'
+							)";
 	mysqli_query($conn, $query1);
 
 	for( $x=0; $x<$jumlah; $x++ ){
-		$query = "INSERT INTO transfer_produk_keluar VALUES ('', 
-										'$tpk_transfer_barang_id[$x]', 
-										'$tpk_barang_id[$x]', 
-										'$tpk_kode_slug[$x]', 
-										'$tpk_qty[$x]', 
-										'$tpk_ref[$x]', 
-										'$tpk_date[$x]', 
-										'$tpk_date_time[$x]', 
-										'$tpk_barang_option_sn[$x]', 
-										'$tpk_barang_sn_id[$x]', 
-										'$tpk_barang_sn_desc[$x]', 
-										'$tpk_user[$x]', 
-										'$tpk_pengirim_cabang[$x]', 
-										'$tpk_penerima_cabang[$x]',
-										'$tpk_cabang[$x]')";
+		$query = "INSERT INTO transfer_produk_keluar (
+							tpk_transfer_barang_id, 
+							tpk_barang_id, 
+							tpk_kode_slug, 
+							tpk_qty, 
+							tpk_ref, 
+							tpk_date, 
+							tpk_date_time, 
+							tpk_barang_option_sn, 
+							tpk_barang_sn_id, 
+							tpk_barang_sn_desc, 
+							tpk_user, 
+							tpk_pengirim_cabang, 
+							tpk_penerima_cabang, 
+							tpk_cabang
+							) VALUES (
+							'$tpk_transfer_barang_id[$x]', 
+							'$tpk_barang_id[$x]', 
+							'$tpk_kode_slug[$x]', 
+							'$tpk_qty[$x]', 
+							'$tpk_ref[$x]', 
+							'$tpk_date[$x]', 
+							'$tpk_date_time[$x]', 
+							'$tpk_barang_option_sn[$x]', 
+							'$tpk_barang_sn_id[$x]', 
+							'$tpk_barang_sn_desc[$x]', 
+							'$tpk_user[$x]', 
+							'$tpk_pengirim_cabang[$x]', 
+							'$tpk_penerima_cabang[$x]', 
+							'$tpk_cabang[$x]'
+							)";
 
 		mysqli_query($conn, $query);
 	}
@@ -4034,8 +4188,6 @@ function prosesTransfer($data) {
 	// Mencari banyak barang SN
 	$barang_option_sn = mysqli_query( $conn, "select tpk_barang_option_sn from transfer_produk_keluar where tpk_ref = '".$transfer_ref."' && tpk_barang_option_sn > 0 && tpk_cabang = '".$transfer_cabang."' ");
 	$barang_option_sn = mysqli_num_rows($barang_option_sn);
-
-	
     
 	// Mencari ID SN
 	if ( $barang_option_sn > 0 ) {
@@ -4081,10 +4233,10 @@ function prosesKonfirmasiTransfer($data) {
 	$transfer_ref 						= $data['transfer_ref'];
 	$transfer_user_penerima 			= $data['transfer_user_penerima'];
 	$transfer_penerima_cabang			= $data['transfer_penerima_cabang'];
-		// Status Trnsfer Stock Antar Cabang
-		// 1. Proses Kirim
-		// 2. Selesai
-		// 3. Dibatalkan 
+	// Status Trnsfer Stock Antar Cabang
+	// 1. Proses Kirim
+	// 2. Selesai
+	// 3. Dibatalkan 
 
 	// ============================================================================= //
 	// Data Input Tabel transfer_produk_masuk
@@ -4101,13 +4253,12 @@ function prosesKonfirmasiTransfer($data) {
 	$tpm_penerima_cabang    = $data['tpm_penerima_cabang'];
 	$tpm_cabang        		= $data['tpm_cabang'];
 
-
+	$tpm_barang_harga			= isset($data['tpm_barang_harga']) ? $data['tpm_barang_harga'] : [];
 	$jumlah = count($tpm_user);
 
 	// Mencari banyak barang SN di tabel transfer_produk_keluar
 	$barang_option_sn_produk_keluar = mysqli_query( $conn, "select tpk_barang_option_sn from transfer_produk_keluar where tpk_ref = '".$transfer_ref."' && tpk_barang_option_sn > 0 && tpk_penerima_cabang = '".$transfer_penerima_cabang."' ");
 	$barang_option_sn_produk_keluar = mysqli_num_rows($barang_option_sn_produk_keluar);
-
 
 	if ( $barang_option_sn_produk_keluar > 0 ) {
 		if ( $transfer_status > 0 ) {
@@ -4122,7 +4273,7 @@ function prosesKonfirmasiTransfer($data) {
 			mysqli_query($conn, $query);
 
 			for( $x=0; $x<$jumlah; $x++ ){
-				$query1 = "INSERT INTO transfer_produk_masuk VALUES ('', 
+				$query1 = "INSERT INTO transfer_produk_masuk (tpm_kode_slug, tpm_qty, tpm_ref, tpm_date, tpm_date_time, tpm_barang_option_sn, tpm_barang_sn_id, tpm_barang_sn_desc, tpm_user, tpm_pengirim_cabang, tpm_penerima_cabang, tpm_cabang) VALUES (
 											'$tpm_kode_slug[$x]', 
 											'$tpm_qty[$x]', 
 											'$tpm_ref[$x]', 
@@ -4136,30 +4287,50 @@ function prosesKonfirmasiTransfer($data) {
 											'$tpm_penerima_cabang[$x]', 
 											'$tpm_cabang[$x]')";
 				mysqli_query($conn, $query1);
+
+				// Update barang table
+				// Get Data Barang
+				$QueryBarang = "SELECT * FROM barang WHERE barang_kode_slug = '{$tpm_kode_slug[$x]}' AND barang_cabang = '{$tpm_penerima_cabang[$x]}'";
+				$QueryBarang = mysqli_query($conn, $QueryBarang);
+				$getBarang = mysqli_fetch_assoc($QueryBarang);
+
+				if ($getBarang) {
+					$oldStock = $getBarang['barang_stock'];
+					$oldHPP = ($getBarang['hpp'] == null) ? 0 : $getBarang['hpp'];
+					$oldBarangHargaBeli = ($getBarang['barang_harga_beli'] == null) ? 0 : $getBarang['barang_harga_beli'];
+					$qty = $tpm_qty[$x];
+					$harga_beli = isset($tpm_barang_harga[$x]) ? $tpm_barang_harga[$x] : $oldBarangHargaBeli;
+					$newStockBarang = $oldStock + $qty;
+					$newHPP = ($oldBarangHargaBeli + ($qty * $harga_beli)) / ($newStockBarang > 0 ? $newStockBarang : 1);
+
+					$QueryUpdateStock = "UPDATE barang SET 
+						barang_stock = $newStockBarang, 
+						hpp = $newHPP,
+						barang_harga_beli = ($oldBarangHargaBeli + ($qty * $harga_beli)), 
+						barang_harga = $harga_beli
+					WHERE barang_kode_slug = '{$tpm_kode_slug[$x]}' AND barang_cabang = '{$tpm_penerima_cabang[$x]}'";
+					mysqli_query($conn, $QueryUpdateStock);
+				}
 			}
 
 			// Mencari banyak barang SN
 			$barang_option_sn = mysqli_query( $conn, "select tpm_barang_option_sn from transfer_produk_masuk where tpm_ref = '".$transfer_ref."' && tpm_barang_option_sn > 0 && tpm_penerima_cabang = '".$transfer_penerima_cabang."' ");
 			$barang_option_sn = mysqli_num_rows($barang_option_sn);
 
-
 			// Mencari ID SN
 			if ( $barang_option_sn > 0 ) {
 				$barang_sn_id = query("SELECT * FROM transfer_produk_masuk WHERE tpm_ref = $transfer_ref && tpm_barang_option_sn > 0 && tpm_penerima_cabang = $transfer_penerima_cabang ");
-				
-				// var_dump($barang_sn_id); die();
 				foreach ( $barang_sn_id as $row ) :
-				 	$barang_sn_id = $row['tpm_barang_sn_id'];
-
-				 	$barang = count($barang_sn_id);
-				 	for ( $i = 0; $i < $barang; $i++ ) {
-				 		$query5 = "UPDATE barang_sn SET 
+					$barang_sn_id = $row['tpm_barang_sn_id'];
+					$barang = count($barang_sn_id);
+					for ( $i = 0; $i < $barang; $i++ ) {
+						$query5 = "UPDATE barang_sn SET 
 								barang_sn_status     = 1,
 								barang_sn_cabang     = '$transfer_penerima_cabang'
 								WHERE barang_sn_id = $barang_sn_id
 						";
-				 	}
-				 	mysqli_query($conn, $query5);
+					}
+					mysqli_query($conn, $query5);
 				endforeach;
 			}
 		} else {
@@ -4186,7 +4357,7 @@ function prosesKonfirmasiTransfer($data) {
 			mysqli_query($conn, $query);
 
 			for( $x=0; $x<$jumlah; $x++ ){
-				$query1 = "INSERT INTO transfer_produk_masuk VALUES ('', 
+				$query1 = "INSERT INTO transfer_produk_masuk (tpm_kode_slug, tpm_qty, tpm_ref, tpm_date, tpm_date_time, tpm_barang_option_sn, tpm_barang_sn_id, tpm_barang_sn_desc, tpm_user, tpm_pengirim_cabang, tpm_penerima_cabang, tpm_cabang) VALUES ( 
 											'$tpm_kode_slug[$x]', 
 											'$tpm_qty[$x]', 
 											'$tpm_ref[$x]', 
@@ -4198,8 +4369,31 @@ function prosesKonfirmasiTransfer($data) {
 											'$tpm_user[$x]', 
 											'$tpm_pengirim_cabang[$x]', 
 											'$tpm_penerima_cabang[$x]', 
-											'$tpm_cabang[$x]')";
+											'$tpm_cabang[$x]' )";
 				mysqli_query($conn, $query1);
+
+				// Update barang table
+				$QueryBarang = "SELECT * FROM barang WHERE barang_kode_slug = '{$tpm_kode_slug[$x]}' AND barang_cabang = '{$tpm_penerima_cabang[$x]}'";
+				$QueryBarang = mysqli_query($conn, $QueryBarang);
+				$getBarang = mysqli_fetch_assoc($QueryBarang);
+
+				if ($getBarang) {
+					$oldStock = $getBarang['barang_stock'];
+					$oldHPP = ($getBarang['hpp'] == null) ? 0 : $getBarang['hpp'];
+					$oldBarangHargaBeli = ($getBarang['barang_harga_beli'] == null) ? 0 : $getBarang['barang_harga_beli'];
+					$qty = $tpm_qty[$x];
+					$harga_beli = isset($tpm_barang_harga[$x]) ? $tpm_barang_harga[$x] : $oldBarangHargaBeli;
+					$newStockBarang = $oldStock + $qty;
+					$newHPP = ($oldBarangHargaBeli + ($qty * $harga_beli)) / ($newStockBarang > 0 ? $newStockBarang : 1);
+
+					$QueryUpdateStock = "UPDATE barang SET 
+						barang_stock = $newStockBarang, 
+						hpp = $newHPP,
+						barang_harga_beli = ($oldBarangHargaBeli + ($qty * $harga_beli)), 
+						barang_harga = $harga_beli
+					WHERE barang_kode_slug = '{$tpm_kode_slug[$x]}' AND barang_cabang = '{$tpm_penerima_cabang[$x]}'";
+					mysqli_query($conn, $QueryUpdateStock);
+				}
 			}
 		} else {
 			// query update data

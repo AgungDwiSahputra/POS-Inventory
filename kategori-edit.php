@@ -47,7 +47,6 @@ if( isset($_POST["sub_submit"]) ){
   if( $result['success'] ) {
     echo "
       <script>
-        alert('".$result['success']."');
         document.location.href = 'kategori-edit?id=$id';
       </script>
     ";
@@ -67,7 +66,6 @@ if( isset($_POST["edit_sub_kategori_submit"]) )
   if( $result['success'] ) {
     echo "
       <script>
-        alert('".$result['success']."');
         document.location.href = 'kategori-edit?id=$id';
       </script>
     ";

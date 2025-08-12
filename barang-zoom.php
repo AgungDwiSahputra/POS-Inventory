@@ -99,6 +99,20 @@ $barang = query("SELECT * FROM barang WHERE barang_id = $id ")[0];
                                 </select>
                               </div>
                           </div>
+
+                          <div class="form-group">
+                              <label for="sub_kategori_id">Sub Kategori</label>
+                              <select name="sub_kategori_id" id="sub_kategori_id" class="form-control" disabled>
+                                  <?php if ($barang['barang_sub_kategori_id']): ?>
+                                      <?php 
+                                          $subKategori = query("SELECT * FROM sub_kategori WHERE id = {$barang['barang_sub_kategori_id']}")[0];
+                                      ?>
+                                      <option value="<?= $subKategori['id']; ?>"><?= $subKategori['sub_kategori_nama']; ?></option>
+                                  <?php else: ?>
+                                      <option value="">--Pilih Kategori Dulu--</option>
+                                  <?php endif; ?>
+                              </select>
+                          </div>
                       </div>
 
                       <div class="col-md-6 col-lg-6">

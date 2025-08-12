@@ -27,7 +27,6 @@ $barang = query("SELECT * FROM barang WHERE barang_id = ".$id." && barang_cabang
 	$keranjang_qty      = 1;
 	$keranjang_cabang   = $sessionCabang;
 	$keranjang_id_cek   = $barang_id.$keranjang_id_kasir.$keranjang_cabang;
-
 	
    	// Insert Data ke Table Keranjang dengan function tambahKeranjangPembelian() Lokasi di file aksi/function.php
 	if( tambahKeranjangPembelian($barang_id, $keranjang_nama, $keranjang_harga, $keranjang_id_kasir, $keranjang_qty, $keranjang_cabang, $keranjang_id_cek) > 0)

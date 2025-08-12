@@ -52,13 +52,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="tanggal_awal">Tanggal Awal</label>
-                        <input type="date" name="tanggal_awal" class="form-control" id="tanggal_awal" required>
+                        <input type="date" name="tanggal_awal" class="form-control" id="tanggal_awal" value="<?= isset($_POST['tanggal_awal']) ? $_POST['tanggal_awal'] : date('Y-m-d') ?>" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="tanggal_akhir">Tanggal Akhir</label>
-                        <input type="date" name="tanggal_akhir" class="form-control" id="tanggal_akhir" required>
+                        <input type="date" name="tanggal_akhir" class="form-control" id="tanggal_akhir" value="<?= isset($_POST['tanggal_akhir']) ? $_POST['tanggal_akhir'] : date('Y-m-d') ?>" required>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -82,6 +82,12 @@
                   <button type="submit" name="submit" class="btn btn-primary">
                     <i class="fa fa-filter"></i> Filter
                   </button>
+                  <!-- add button print dengan url parameter laporan-kasir-print?tanggal_awal=2025-07-01&tanggal_akhir=2025-07-31&kasir=3 -->
+                  <?php if( isset($_POST["submit"]) ){ ?>
+                    <a href="laporan-kasir-print?tanggal_awal=<?= $_POST['tanggal_awal'] ?>&tanggal_akhir=<?= $_POST['tanggal_akhir'] ?>&user_id=<?= $_POST['user_id'] ?>" class="btn btn-success">
+                      <i class="fa fa-print"></i> Print
+                    </a>
+                  <?php } ?>
               </div>
             </div>
           </form>
@@ -142,7 +148,7 @@
                   <tr>
                       <td><?= $i; ?></td>
                       <td><?= $rowProduct['penjualan_invoice']; ?></td>
-                      <td><?= $rowProduct['invoice_tgl']; ?></td>
+                      <td><?= date('j F Y \a\\t g:i A', strtotime($rowProduct['invoice_tgl'])); ?></td>
                       <td><?= $rowProduct['user_nama']; ?></td>
                       <td>Rp. <?= number_format($rowProduct['invoice_total_beli_non_fisik'], 0, ',', '.'); ?></td>
                       <td>Rp. <?= number_format($rowProduct['invoice_sub_total'], 0, ',', '.'); ?></td>

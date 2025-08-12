@@ -19,15 +19,19 @@ $table = <<<EOT
       a.barang_kode,
       a.barang_nama,
       a.barang_kategori_id, 
+      a.barang_sub_kategori_id, 
       a.barang_harga_beli, 
       a.barang_harga,
       a.barang_stock,
       a.barang_option_sn,
       a.barang_cabang,
       b.kategori_id,
-      b.kategori_nama
+      b.kategori_nama,
+      sub_b.id AS sub_kategori_id,
+      sub_b.sub_kategori_nama
     FROM barang a
     LEFT JOIN kategori b ON a.barang_kategori_id = b.kategori_id
+    LEFT JOIN sub_kategori sub_b ON a.barang_sub_kategori_id = sub_b.id
  ) temp
 EOT;
  
@@ -40,9 +44,21 @@ $primaryKey = 'barang_id';
 $columns = array( 
     array( 'db' => 'barang_id', 'dt'              => 0 ),
     array( 'db' => 'barang_kode', 'dt'            => 1 ), 
-    array( 'db' => 'barang_nama', 'dt'            => 2 ), 
+    array( 
+        'db'        => 'sub_kategori_nama', 
+        'dt'        => 2, 
+        'formatter' => function( $d, $row ) { 
+            return $d; 
+        } 
+    ), 
+    array( 
+        'db'        => 'barang_nama', 
+        'dt'        => 2, 
+        'formatter' => function( $d, $row ) { 
+            return empty($row['sub_kategori_nama']) ? $d : "[ $row[sub_kategori_nama] ] $d"; 
+        } 
+    ), 
     array( 'db' => 'kategori_nama',  'dt'         => 3 ), 
-    // array( 'db' => 'barang_harga_beli',      'dt' => 4 ),
     array( 'db' => 'barang_harga',      'dt'      => 4 ),
     array( 'db' => 'barang_stock',      'dt'      => 5 ),
     array( 

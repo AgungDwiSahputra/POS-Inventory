@@ -32,7 +32,7 @@ if( isset($_POST["prosesKonfirmasiTransfer"]) ){
   // query data mahasiswa berdasarkan id
   $transfer = query("SELECT * FROM transfer WHERE transfer_ref = $id && transfer_penerima_cabang = $sessionCabang")[0];
 
-  $produkStock = query("SELECT * FROM transfer_produk_keluar WHERE tpk_ref = $id && tpk_penerima_cabang = $sessionCabang ORDER BY tpk_id DESC");
+  $produkStock = query("SELECT tpk.*, b.barang_harga_beli, b.barang_harga, b.hpp, b.barang_stock FROM transfer_produk_keluar tpk LEFT JOIN barang b ON tpk.tpk_barang_id = b.barang_id WHERE tpk.tpk_ref = $id && tpk.tpk_penerima_cabang = $sessionCabang ORDER BY tpk.tpk_id DESC");
 
   if ( $transfer == null ) {
     header("location: transfer-stock-cabang-keluar");
@@ -254,7 +254,6 @@ if( isset($_POST["prosesKonfirmasiTransfer"]) ){
                   <!-- /.col -->
                 </div>
                 <!-- /.row -->
-
                 
                 <?php foreach ( $produkStock as $row ) : ?>
                   <input type="hidden" name="tpm_kode_slug[]" value="<?= $row['tpk_kode_slug']; ?>">
@@ -269,6 +268,7 @@ if( isset($_POST["prosesKonfirmasiTransfer"]) ){
                   <input type="hidden" name="tpm_pengirim_cabang[]" value="<?= $row['tpk_pengirim_cabang']; ?>">
                   <input type="hidden" name="tpm_penerima_cabang[]" value="<?= $row['tpk_penerima_cabang']; ?>">
                   <input type="hidden" name="tpm_cabang[]" value="<?= $sessionCabang; ?>">
+                  <input type="hidden" name="tpm_barang_harga[]" value="<?= $row['barang_harga']; ?>">
                 <?php endforeach; ?>
 
                 <!-- this row will not appear when printing -->
