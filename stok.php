@@ -124,7 +124,7 @@ if (empty($_GET['id'])) {
                     $i = 1;
                     $totalBeli = 0;
                     $totalJual = 0;
-                    $queryProduct = $conn->query("SELECT barang.barang_id, barang.barang_kode, barang.barang_nama, barang.barang_harga_beli, barang.barang_harga, barang.hpp, barang.barang_stock, barang.barang_cabang, kategori.kategori_id, kategori.kategori_nama, sk.id as sub_kategori_id, sk.sub_kategori_nama, satuan.satuan_id, satuan.satuan_nama
+                    $queryProduct = $conn->query("SELECT barang.barang_id, barang.barang_kode, barang.barang_nama, barang.barang_harga_beli, barang.barang_harga, barang.hpp, barang.barang_stock, barang.barang_cabang, kategori.kategori_id, kategori.kategori_nama, sk.id as sub_kategori_id, sk.sub_kategori_kode, satuan.satuan_id, satuan.satuan_nama
                                FROM barang 
                                JOIN kategori ON barang.kategori_id = kategori.kategori_id
                                LEFT JOIN sub_kategori as sk ON barang.barang_sub_kategori_id = sk.id
@@ -138,7 +138,8 @@ if (empty($_GET['id'])) {
                       <tr>
                         <td><?= $i; ?></td>
                         <td><?= $rowProduct['barang_kode']; ?></td>
-                        <td><?= (empty($rowProduct['sub_kategori_nama']) ? '' : ('[ ' . $rowProduct['sub_kategori_nama']) . ' ] ') . $rowProduct['barang_nama'] ?></td>
+                        <!-- <td><?= (empty($rowProduct['sub_kategori_kode']) ? '' : ('[ ' . $rowProduct['sub_kategori_kode']) . ' ] ') . $rowProduct['barang_nama'] ?></td> -->
+                        <td><?= (empty($rowProduct['sub_kategori_kode']) ? '' : ($rowProduct['sub_kategori_kode']) . '-') . $rowProduct['barang_nama'] ?></td>
                         <td><?= $rowProduct['kategori_nama']; ?></td>
                         <td>
                           <b><?= $rowProduct['barang_stock']; ?></b>
@@ -242,7 +243,7 @@ if (empty($_GET['id'])) {
                         <td><?= $rowProduct['barang_kode']; ?></td>
                         <td><?= $rowProduct['barang_nama']; ?></td>
                         <td><?= $rowProduct['kategori_nama']; ?></td>
-                        <td><?= (empty($rowProduct['sub_kategori_nama']) ? '' : ('[ ' . $rowProduct['sub_kategori_nama']) . ' ] ') . $rowProduct['barang_nama'] ?></td>
+                        <td><?= (empty($rowProduct['sub_kategori_kode']) ? '' : ('[ ' . $rowProduct['sub_kategori_kode']) . ' ] ') . $rowProduct['barang_nama'] ?></td>
                         <td>
                           <b><?= $rowProduct['barang_stock']; ?></b>
                         </td>

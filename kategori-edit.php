@@ -171,10 +171,14 @@ if( isset($_POST["edit_sub_kategori_submit"]) )
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-12 col-lg-12">
+                        <input type="hidden" name="kategori_id" value="<?= (isset($kategori['kategori_id'])) ? $kategori['kategori_id'] : ''; ?>">
                         <div class="form-group">
-                          <input type="hidden" name="kategori_id" value="<?= (isset($kategori['kategori_id'])) ? $kategori['kategori_id'] : ''; ?>">
+                          <label for="sub_kategori_kode">Kode Sub Kategori</label>
+                          <input type="text" name="sub_kategori_kode" class="form-control" id="sub_kategori_kode" value="<?= (isset($sub_kategori['sub_kategori_kode'])) ? $sub_kategori['sub_kategori_kode'] : ''; ?>" placeholder="SAND" maxlength="4" required>
+                        </div>
+                        <div class="form-group">
                           <label for="sub_kategori_nama">Nama Sub Kategori</label>
-                          <input type="text" name="sub_kategori_nama" class="form-control" id="sub_kategori_nama" value="<?= (isset($sub_kategori['sub_kategori_nama'])) ? $sub_kategori['sub_kategori_nama'] : ''; ?>" required>
+                          <input type="text" name="sub_kategori_nama" class="form-control" id="sub_kategori_nama" value="<?= (isset($sub_kategori['sub_kategori_nama'])) ? $sub_kategori['sub_kategori_nama'] : ''; ?>" placeholder="Flashdisk" required>
                         </div>
                         <div class="form-group ">
                             <label for="sub_kategori_status">Status</label>
@@ -187,8 +191,8 @@ if( isset($_POST["edit_sub_kategori_submit"]) )
                                 }
                               ?>
                                 <select name="sub_kategori_status" required="" class="form-control ">'
-                                    <option value="0">Not Active</option>
-                                    <option value="1">Active</option>
+                                  <option value="1">Active</option>
+                                  <option value="0">Not Active</option>
                                 </select>
                             </div>
                         </div>
@@ -219,6 +223,7 @@ if( isset($_POST["edit_sub_kategori_submit"]) )
                     <thead>
                     <tr>
                       <th style="width: 5%;">No.</th>
+                      <th>Kode</th>
                       <th>Sub Kategori</th>
                       <th style="text-align: center; width: 20%;">Status</th>
                       <th style="text-align: center; width: 10%;">Aksi</th>
@@ -230,6 +235,10 @@ if( isset($_POST["edit_sub_kategori_submit"]) )
                         <tr>
                             <form method="POST" action="kategori-edit?id=<?= $id; ?>">
                                 <td><?= $index + 1; ?></td>
+                                <td style="text-align: center;">
+                                    <!-- <span><?= $row['sub_kategori_kode']; ?></span>	 -->
+                                    <input type="text" name="sub_kategori_kode" class="form-control" value="<?= $row['sub_kategori_kode']; ?>" maxlength="4" required>		
+                                </td>
                                 <td style="text-align: center;">
                                     <input type="text" name="sub_kategori_nama" class="form-control" value="<?= $row['sub_kategori_nama']; ?>" required>		
                                 </td>

@@ -28,7 +28,7 @@ $table = <<<EOT
       b.kategori_id,
       b.kategori_nama,
       sub_b.id AS sub_kategori_id,
-      sub_b.sub_kategori_nama
+      sub_b.sub_kategori_kode
     FROM barang a
     LEFT JOIN kategori b ON a.barang_kategori_id = b.kategori_id
     LEFT JOIN sub_kategori sub_b ON a.barang_sub_kategori_id = sub_b.id
@@ -45,7 +45,7 @@ $columns = array(
     array( 'db' => 'barang_id', 'dt'              => 0 ),
     array( 'db' => 'barang_kode', 'dt'            => 1 ), 
     array( 
-        'db'        => 'sub_kategori_nama', 
+        'db'        => 'sub_kategori_kode', 
         'dt'        => 2, 
         'formatter' => function( $d, $row ) { 
             return $d; 
@@ -55,7 +55,8 @@ $columns = array(
         'db'        => 'barang_nama', 
         'dt'        => 2, 
         'formatter' => function( $d, $row ) { 
-            return empty($row['sub_kategori_nama']) ? $d : "[ $row[sub_kategori_nama] ] $d"; 
+            // return empty($row['sub_kategori_kode']) ? $d : "[ $row[sub_kategori_kode] ] $d"; 
+            return empty($row['sub_kategori_kode']) ? $d : "$row[sub_kategori_kode]-$d"; 
         } 
     ), 
     array( 'db' => 'kategori_nama',  'dt'         => 3 ), 

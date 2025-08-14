@@ -124,7 +124,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kategori_id'])) {
                         <input type="hidden" name="barang_kode_count" value="<?= $barangCount; ?>">
                           <div class="form-group">
                               <label for="barang_nama">Nama Barang</label>
-                              <input type="text" name="barang_nama" class="form-control" id="barang_nama" placeholder="Input Nama Barang" required>
+                              <div style="display: flex;align-items:center;justify-content: start;gap:8px;">
+                                <input type="text" name="barang_nama" class="form-control" id="barang_nama" placeholder="Input Nama Barang" required>
+                                <button type="button" class="btn btn-primary" id="createKode" style="flex: 0 0 auto">Create Kode</button>
+                              </div>
                           </div>
                           <div class="form-group">
                               <label for="barang_deskripsi">Deskripsi</label>
@@ -423,5 +426,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kategori_id'])) {
             $(".satuan_id_3").removeAttr("required");
         }
     });
+</script>
+
+<script>
+  const inputNama = document.querySelector('input[name="barang_nama"]');
+  const inputKode = document.querySelector('input[name="barang_kode"]');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('createKode').addEventListener('click', () => {
+      generateKodeBarang(inputNama.value, inputKode);
+    });
+  })
+  
+  function generateKodeBarang(inputNama, inputKode){
+    const namaBarang = inputNama.replace(/\s+/g, '-').toUpperCase();
+    let kodeBarang = namaBarang.replace(/[A-Z]/g, m => m.charCodeAt(0) - 64);
+    const namaBarangLength = kodeBarang.length;
+    kodeBarang = namaBarangLength > 15 ? kodeBarang.slice(-15) : kodeBarang;
+    
+
+    inputKode.value = kodeBarang;
+  }
+
+  // document.addEventListener('DOMContentLoaded', () => {
+  //   inputNama.addEventListener('keyup', (e) => {
+  //     generateKodeBarang(e.target.value, inputKode);
+  //   });
+  // })
 </script>
 

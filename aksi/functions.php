@@ -335,10 +335,12 @@ function tambahSubKategori($data) {
 	// ambil data dari tiap elemen dalam form
 	$id = $data["kategori_id"];
 	$sub_kategori_nama = htmlspecialchars($data['sub_kategori_nama']);
+	// $sub_kategori_kode = strtoupper(substr($sub_kategori_nama, 0, 4));
+	$sub_kategori_kode = htmlspecialchars($data['sub_kategori_kode']);
 	$sub_kategori_status = $data['sub_kategori_status'];
 
 	// query insert data
-	$query = "INSERT INTO sub_kategori (kategori_id, sub_kategori_nama, sub_kategori_status) VALUES ($id, '$sub_kategori_nama', '$sub_kategori_status')";
+	$query = "INSERT INTO sub_kategori (kategori_id, sub_kategori_kode, sub_kategori_nama, sub_kategori_status) VALUES ($id, '$sub_kategori_kode', '$sub_kategori_nama', '$sub_kategori_status')";
 	if (!mysqli_query($conn, $query)) {
 		return [
 			'success' => false,
@@ -364,10 +366,12 @@ function editSubKategori($data) {
 	// ambil data dari tiap elemen dalam form
 	$id = $data["id"];
 	$sub_kategori_nama = htmlspecialchars($data['sub_kategori_nama']);
+	// $sub_kategori_kode = strtoupper(substr($sub_kategori_nama, 0, 4));
+	$sub_kategori_kode = htmlspecialchars($data['sub_kategori_kode']);
 	$sub_kategori_status = $data['sub_kategori_status'];
 
 	// query update data
-	$query = "UPDATE sub_kategori SET sub_kategori_nama = '$sub_kategori_nama', sub_kategori_status = '$sub_kategori_status' WHERE id = $id";
+	$query = "UPDATE sub_kategori SET sub_kategori_kode = '$sub_kategori_kode', sub_kategori_nama = '$sub_kategori_nama', sub_kategori_status = '$sub_kategori_status' WHERE id = $id";
 	if (!mysqli_query($conn, $query)) {
 		return [
 			'success' => false,
