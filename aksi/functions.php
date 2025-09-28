@@ -509,7 +509,7 @@ function tambahBarang($data) {
 	$barang_cabang				= $data["barang_cabang"] ?? 0;
 
 	// Cek Email
-	$barang_kode_cek = mysqli_num_rows(mysqli_query($conn, "select * from barang where barang_kode = '".$barang_kode."' && barang_cabang = ".$barang_cabang." "));
+	$barang_kode_cek = mysqli_num_rows(mysqli_query($conn, "select * from barang where barang_kode = '".$barang_kode."' AND barang_cabang = ".$barang_cabang." "));
 
 	if ( $barang_kode_cek > 0 ) {
 		echo "
@@ -643,7 +643,7 @@ function hapusBarang($id) {
     $barang_kode_slug 	= $barang['barang_kode_slug'];
     $barang_cabang 		= $barang['barang_cabang'];
 
-    $countBarangSn = mysqli_query($conn, "select * from barang_sn where barang_kode_slug = '".$barang_kode_slug."' && barang_sn_status > 0 && barang_sn_cabang = ".$barang_cabang." ");
+    $countBarangSn = mysqli_query($conn, "select * from barang_sn where barang_kode_slug = '".$barang_kode_slug."' AND barang_sn_status > 0 AND barang_sn_cabang = ".$barang_cabang." ");
     $countBarangSn = mysqli_num_rows($countBarangSn);
 
     if ( $sn < 1 ) {
@@ -653,7 +653,7 @@ function hapusBarang($id) {
     	mysqli_query( $conn, "DELETE FROM barang WHERE barang_id = $id");
     	
     	if ( $countBarangSn > 0 ) {
-    		mysqli_query( $conn, "DELETE FROM barang_sn WHERE barang_kode_slug = '".$barang_kode_slug."' && barang_sn_status > 0 && barang_sn_cabang = $barang_cabang ");
+    		mysqli_query( $conn, "DELETE FROM barang_sn WHERE barang_kode_slug = '".$barang_kode_slug."' AND barang_sn_status > 0 AND barang_sn_cabang = $barang_cabang ");
     	}
     	return mysqli_affected_rows($conn);
     }
@@ -685,7 +685,7 @@ function tambahBarangSn($data) {
 	} else {
 	    // query insert data jika tidak ada duplikat
 	    for ($x = 0; $x < $jumlah; $x++) {
-	    	$countSnDb = mysqli_query($conn, "SELECT * FROM barang_sn WHERE barang_sn_desc = '$barang_sn_desc[$x]' && barang_sn_cabang = $barang_sn_cabang[$x] ");
+	    	$countSnDb = mysqli_query($conn, "SELECT * FROM barang_sn WHERE barang_sn_desc = '$barang_sn_desc[$x]' AND barang_sn_cabang = $barang_sn_cabang[$x] ");
 	    	$countSnDb = mysqli_num_rows($countSnDb);
 
 	    	if ( $countSnDb > 0 ) {
@@ -811,7 +811,7 @@ function tambahKeranjang($keranjang_cabang,
 	// Cek STOCK
 	$barang_id_cek = mysqli_num_rows(mysqli_query($conn, "select * from keranjang where keranjang_id_cek = '$keranjang_id_cek' "));
 		
-	if ( $barang_id_cek > 0 && $keranjang_barang_option_sn < 1 ) {
+	if ( $barang_id_cek > 0 AND $keranjang_barang_option_sn < 1 ) {
 		$keranjangParent = mysqli_query( $conn, "select keranjang_qty, keranjang_qty_view, keranjang_konversi_isi from keranjang where keranjang_id_cek = '".$keranjang_id_cek."'");
         $kp = mysqli_fetch_array($keranjangParent); 
         // $kp += $keranjang_qty;
@@ -897,9 +897,9 @@ function tambahKeranjangDraft($keranjang_cabang,
 
 
 	// Cek STOCK
-	$barang_id_cek = mysqli_num_rows(mysqli_query($conn, "select * from keranjang_draft where barang_id = ".$barang_id." && keranjang_invoice = ".$invoice." && keranjang_cabang = ".$keranjang_cabang." "));
+	$barang_id_cek = mysqli_num_rows(mysqli_query($conn, "select * from keranjang_draft where barang_id = ".$barang_id." AND keranjang_invoice = ".$invoice." AND keranjang_cabang = ".$keranjang_cabang." "));
 
-	if ( $barang_id_cek > 0 && $keranjang_barang_option_sn < 1 ) {
+	if ( $barang_id_cek > 0 AND $keranjang_barang_option_sn < 1 ) {
 		$keranjangParent = mysqli_query( $conn, "select keranjang_qty, keranjang_qty_view, keranjang_konversi_isi from keranjang_draft where keranjang_id_cek = '".$keranjang_id_cek."'");
         $kp = mysqli_fetch_array($keranjangParent); 
         // $kp += $keranjang_qty;
@@ -988,7 +988,7 @@ function tambahKeranjangBarcode($data) {
 		barang_kode_slug, 
 		satuan_id,
 		satuan_isi_1,
-		barang_option_sn from barang where barang_kode = '".$barang_kode."' && barang_cabang = ".$keranjang_cabang." ");
+		barang_option_sn from barang where barang_kode = '".$barang_kode."' AND barang_cabang = ".$keranjang_cabang." ");
     $br 		= mysqli_fetch_array($barang);
 
     $barang_id  				= $br["barang_id"];
@@ -1035,7 +1035,7 @@ function tambahKeranjangBarcode($data) {
 	   		// Cek STOCK
 			$barang_id_cek = mysqli_num_rows(mysqli_query($conn, "select * from keranjang where keranjang_id_cek = ".$keranjang_id_cek." "));
 				
-			if ( $barang_id_cek > 0 && $keranjang_barang_option_sn < 1 ) {
+			if ( $barang_id_cek > 0 AND $keranjang_barang_option_sn < 1 ) {
 				$keranjangParent = mysqli_query( $conn, "select keranjang_qty, keranjang_qty_view, keranjang_konversi_isi from keranjang where keranjang_id_cek = '".$keranjang_id_cek."'");
 		        $kp = mysqli_fetch_array($keranjangParent); 
 		        // $kp += $keranjang_qty;
@@ -1082,7 +1082,7 @@ function tambahKeranjangBarcode($data) {
 	   	}
 	} else {
 		// Menghitung Keranjang No. SN
-		$countSnKeranjang = mysqli_query($conn, "SELECT * FROM keranjang WHERE keranjang_sn = '".$barang_kode."' && keranjang_cabang = $keranjang_cabang");
+		$countSnKeranjang = mysqli_query($conn, "SELECT * FROM keranjang WHERE keranjang_sn = '".$barang_kode."' AND keranjang_cabang = $keranjang_cabang");
 		$countSnKeranjang = mysqli_num_rows($countSnKeranjang);
 
 		if ( $countSnKeranjang > 0 ) {
@@ -1094,7 +1094,7 @@ function tambahKeranjangBarcode($data) {
 			'; exit();
 		} else {
 			// Menghitung tabel barang SN
-			$countSn = mysqli_query($conn, "SELECT * FROM barang_sn WHERE barang_sn_desc = '".$barang_kode."' && barang_sn_cabang = $keranjang_cabang && barang_sn_status > 0 ");
+			$countSn = mysqli_query($conn, "SELECT * FROM barang_sn WHERE barang_sn_desc = '".$barang_kode."' AND barang_sn_cabang = $keranjang_cabang AND barang_sn_status > 0 ");
 			$countSn = mysqli_num_rows($countSn);
 
 			if ( $countSn < 1 ) {
@@ -1105,7 +1105,7 @@ function tambahKeranjangBarcode($data) {
 					</script>
 				'; exit();
 			} else {
-					$dataSnInput = mysqli_query($conn, "SELECT barang_sn_id, barang_kode_slug FROM barang_sn WHERE barang_sn_desc = '".$barang_kode."' && barang_sn_cabang = $keranjang_cabang ");
+					$dataSnInput = mysqli_query($conn, "SELECT barang_sn_id, barang_kode_slug FROM barang_sn WHERE barang_sn_desc = '".$barang_kode."' AND barang_sn_cabang = $keranjang_cabang ");
 					$dataSnInput = mysqli_fetch_array($dataSnInput);
 
 					$barang_sn_id 			= $dataSnInput['barang_sn_id'];
@@ -1122,7 +1122,7 @@ function tambahKeranjangBarcode($data) {
 						barang_kode_slug, 
 						satuan_id,
 						satuan_isi_1,
-						barang_option_sn from barang where barang_kode = '".$barang_kode_slug."' && barang_cabang = ".$keranjang_cabang." ");
+						barang_option_sn from barang where barang_kode = '".$barang_kode_slug."' AND barang_cabang = ".$keranjang_cabang." ");
 				    $br 		= mysqli_fetch_array($barang);
 
 				    $barang_id  				= $br["barang_id"];
@@ -1201,7 +1201,7 @@ function tambahKeranjangBarcodeDraft($data) {
 		barang_kode_slug, 
 		satuan_id,
 		satuan_isi_1,
-		barang_option_sn from barang where barang_kode = '".$barang_kode."' && barang_cabang = ".$keranjang_cabang." ");
+		barang_option_sn from barang where barang_kode = '".$barang_kode."' AND barang_cabang = ".$keranjang_cabang." ");
     $br 		= mysqli_fetch_array($barang);
 
     $barang_id  				= $br["barang_id"];
@@ -1246,9 +1246,9 @@ function tambahKeranjangBarcodeDraft($data) {
 			';
 	   	} else {
 	   		// Cek STOCK
-			$barang_id_cek = mysqli_num_rows(mysqli_query($conn, "select * from keranjang_draft where barang_id = ".$barang_id." && keranjang_invoice = ".$keranjang_invoice." && keranjang_cabang = ".$keranjang_cabang." "));
+			$barang_id_cek = mysqli_num_rows(mysqli_query($conn, "select * from keranjang_draft where barang_id = ".$barang_id." AND keranjang_invoice = ".$keranjang_invoice." AND keranjang_cabang = ".$keranjang_cabang." "));
 				
-			if ( $barang_id_cek > 0 && $keranjang_barang_option_sn < 1 ) {
+			if ( $barang_id_cek > 0 AND $keranjang_barang_option_sn < 1 ) {
 				$keranjangParent = mysqli_query( $conn, "select keranjang_qty, keranjang_qty_view, keranjang_konversi_isi from keranjang_draft where keranjang_id_cek = '".$keranjang_id_cek."'");
 		        $kp = mysqli_fetch_array($keranjangParent); 
 		        // $kp += $keranjang_qty;
@@ -1297,7 +1297,7 @@ function tambahKeranjangBarcodeDraft($data) {
 	   	}
 	} else {
 		// Menghitung Keranjang No. SN
-		$countSnKeranjang = mysqli_query($conn, "SELECT * FROM keranjang_draft WHERE keranjang_sn = '".$barang_kode."' && keranjang_cabang = $keranjang_cabang");
+		$countSnKeranjang = mysqli_query($conn, "SELECT * FROM keranjang_draft WHERE keranjang_sn = '".$barang_kode."' AND keranjang_cabang = $keranjang_cabang");
 		$countSnKeranjang = mysqli_num_rows($countSnKeranjang);
 
 		// var_dump($countSnKeranjang); die();
@@ -1310,7 +1310,7 @@ function tambahKeranjangBarcodeDraft($data) {
 			'; exit();
 		} else {
 			// Menghitung tabel barang SN
-			$countSn = mysqli_query($conn, "SELECT * FROM barang_sn WHERE barang_sn_desc = '".$barang_kode."' && barang_sn_cabang = $keranjang_cabang && barang_sn_status > 0 ");
+			$countSn = mysqli_query($conn, "SELECT * FROM barang_sn WHERE barang_sn_desc = '".$barang_kode."' AND barang_sn_cabang = $keranjang_cabang AND barang_sn_status > 0 ");
 			$countSn = mysqli_num_rows($countSn);
 
 			if ( $countSn < 1 ) {
@@ -1321,7 +1321,7 @@ function tambahKeranjangBarcodeDraft($data) {
 					</script>
 				'; exit();
 			} else {
-					$dataSnInput = mysqli_query($conn, "SELECT barang_sn_id, barang_kode_slug FROM barang_sn WHERE barang_sn_desc = '".$barang_kode."' && barang_sn_cabang = $keranjang_cabang ");
+					$dataSnInput = mysqli_query($conn, "SELECT barang_sn_id, barang_kode_slug FROM barang_sn WHERE barang_sn_desc = '".$barang_kode."' AND barang_sn_cabang = $keranjang_cabang ");
 					$dataSnInput = mysqli_fetch_array($dataSnInput);
 
 					$barang_sn_id 			= $dataSnInput['barang_sn_id'];
@@ -1338,7 +1338,7 @@ function tambahKeranjangBarcodeDraft($data) {
 						barang_kode_slug, 
 						satuan_id,
 						satuan_isi_1,
-						barang_option_sn from barang where barang_kode = '".$barang_kode_slug."' && barang_cabang = ".$keranjang_cabang." ");
+						barang_option_sn from barang where barang_kode = '".$barang_kode_slug."' AND barang_cabang = ".$keranjang_cabang." ");
 				    $br 		= mysqli_fetch_array($barang);
 
 				    $barang_id  				= $br["barang_id"];
@@ -1678,7 +1678,7 @@ function tambahKeranjangNonFisik($knf_cabang, $knf_barang_id, $knf_barang_nama, 
 	} else {
 		// Memeriksa apakah kata "tarik tunai" ada di dalam inputan
 		if (strpos(strtolower($knf_barang_nama), 'tarik tunai') !== false) {
-		    $countTarikTunai = mysqli_query($conn, "SELECT * FROM keranjang_non_fisik WHERE knf_id_kasir = $knf_id_kasir && knf_cabang = $knf_cabang");
+		    $countTarikTunai = mysqli_query($conn, "SELECT * FROM keranjang_non_fisik WHERE knf_id_kasir = $knf_id_kasir AND knf_cabang = $knf_cabang");
             $countTarikTunai = mysqli_num_rows($countTarikTunai);
 
             if ( $countTarikTunai < 1 ) {
@@ -1713,7 +1713,7 @@ function tambahKeranjangBarcodeNonFisik($data) {
 	$knf_cabang   				= $data['knf_cabang'];
 
 	// Ambil Data Barang berdasarkan Kode Barang 
-	$jasa 	= mysqli_query( $conn, "select bnf_id, bnf_kode, bnf_nama, bnf_harga_beli, bnf_harga_jual, bnf_status  from barang_non_fisik where bnf_kode = '".$knf_barang_kode."' && bnf_cabang = ".$knf_cabang." ");
+	$jasa 	= mysqli_query( $conn, "select bnf_id, bnf_kode, bnf_nama, bnf_harga_beli, bnf_harga_jual, bnf_status  from barang_non_fisik where bnf_kode = '".$knf_barang_kode."' AND bnf_cabang = ".$knf_cabang." ");
     $jasa 		= mysqli_fetch_array($jasa);
 
     $knf_barang_id   	= $jasa['bnf_id'];
@@ -1762,7 +1762,7 @@ function tambahKeranjangBarcodeNonFisik($data) {
 			} else {
 				// Memeriksa apakah kata "tarik tunai" ada di dalam inputan
 				if (strpos(strtolower($knf_barang_nama), 'tarik tunai') !== false) {
-				    $countTarikTunai = mysqli_query($conn, "SELECT * FROM keranjang_non_fisik WHERE knf_id_kasir = $knf_id_kasir && knf_cabang = $knf_cabang");
+				    $countTarikTunai = mysqli_query($conn, "SELECT * FROM keranjang_non_fisik WHERE knf_id_kasir = $knf_id_kasir AND knf_cabang = $knf_cabang");
 		            $countTarikTunai = mysqli_num_rows($countTarikTunai);
 
 		            if ( $countTarikTunai < 1 ) {
@@ -1904,14 +1904,14 @@ function updateStockNonFisik($data) {
 	}
 	$jumlah = count($pbnf_id_kasir);
 
-	if ( $invoice_piutang == 0 && $invoice_bayar < $invoice_sub_total ) {
+	if ( $invoice_piutang == 0 AND $invoice_bayar < $invoice_sub_total ) {
 		echo"
 			<script>
 				alert('Transaksi TIDAK BISA Dilanjutakn !!! Nominal Pembayaran LEBIH KECIL dari Total Pembayaran.. Silahkan Melakukan Transaksi PIUTANG jika Nominal Kurang Dari Total Pembayaran');
 				document.location.href = '';
 			</script>
 		";
-	} elseif ( $invoice_piutang == 1 && $invoice_bayar >= $invoice_sub_total ) {
+	} elseif ( $invoice_piutang == 1 AND $invoice_bayar >= $invoice_sub_total ) {
 		echo"
 			<script>
 				alert('Transaksi TIDAK BISA Dilanjutakn !!! Nominal DP LEBIH BESAR / SAMA dari Total Piutang.. Silahkan Melakukan Transaksi CASH jika Nominal Lebih Besar / Sama Dari Total Pembayaran');
@@ -2167,7 +2167,7 @@ function tambahKeranjangNonFisikDraft($knf_cabang, $knf_barang_id, $knf_barang_n
 	} else {
 		// Memeriksa apakah kata "tarik tunai" ada di dalam inputan
 		if (strpos(strtolower($knf_barang_nama), 'tarik tunai') !== false) {
-		    $countTarikTunai = mysqli_query($conn, "SELECT * FROM keranjang_non_fisik_draft WHERE knfd_id_kasir = $knf_id_kasir && knfd_cabang = $knf_cabang");
+		    $countTarikTunai = mysqli_query($conn, "SELECT * FROM keranjang_non_fisik_draft WHERE knfd_id_kasir = $knf_id_kasir AND knfd_cabang = $knf_cabang");
             $countTarikTunai = mysqli_num_rows($countTarikTunai);
 
             if ( $countTarikTunai < 1 ) {
@@ -2202,7 +2202,7 @@ function tambahKeranjangBarcodeNonFisikDraft($data) {
 	$knf_cabang   				= $data['knf_cabang'];
 
 	// Ambil Data Barang berdasarkan Kode Barang 
-	$jasa 	= mysqli_query( $conn, "select bnf_id, bnf_kode, bnf_nama, bnf_harga_beli, bnf_harga_jual, bnf_status  from barang_non_fisik where bnf_kode = '".$knf_barang_kode."' && bnf_cabang = ".$knf_cabang." ");
+	$jasa 	= mysqli_query( $conn, "select bnf_id, bnf_kode, bnf_nama, bnf_harga_beli, bnf_harga_jual, bnf_status  from barang_non_fisik where bnf_kode = '".$knf_barang_kode."' AND bnf_cabang = ".$knf_cabang." ");
     $jasa 		= mysqli_fetch_array($jasa);
 
     $knf_barang_id   	= $jasa['bnf_id'];
@@ -2251,7 +2251,7 @@ function tambahKeranjangBarcodeNonFisikDraft($data) {
 			} else {
 				// Memeriksa apakah kata "tarik tunai" ada di dalam inputan
 				if (strpos(strtolower($knf_barang_nama), 'tarik tunai') !== false) {
-				    $countTarikTunai = mysqli_query($conn, "SELECT * FROM keranjang_non_fisik_draft WHERE knfd_id_kasir = $knf_id_kasir && knfd_cabang = $knf_cabang");
+				    $countTarikTunai = mysqli_query($conn, "SELECT * FROM keranjang_non_fisik_draft WHERE knfd_id_kasir = $knf_id_kasir AND knfd_cabang = $knf_cabang");
 		            $countTarikTunai = mysqli_num_rows($countTarikTunai);
 
 		            if ( $countTarikTunai < 1 ) {
@@ -2389,14 +2389,14 @@ function updateStock($data) {
 	}
 	$jumlah = count($keranjang_id_kasir);
 
-	if ( $invoice_piutang == 0 && $invoice_bayar < $invoice_sub_total ) {
+	if ( $invoice_piutang == 0 AND $invoice_bayar < $invoice_sub_total ) {
 		echo"
 			<script>
 				alert('Transaksi TIDAK BISA Dilanjutakn !!! Nominal Pembayaran LEBIH KECIL dari Total Pembayaran.. Silahkan Melakukan Transaksi PIUTANG jika Nominal Kurang Dari Total Pembayaran');
 				document.location.href = '';
 			</script>
 		";
-	} elseif ( $invoice_piutang == 1 && $invoice_bayar >= $invoice_sub_total ) {
+	} elseif ( $invoice_piutang == 1 AND $invoice_bayar >= $invoice_sub_total ) {
 		echo"
 			<script>
 				alert('Transaksi TIDAK BISA Dilanjutakn !!! Nominal DP LEBIH BESAR / SAMA dari Total Piutang.. Silahkan Melakukan Transaksi CASH jika Nominal Lebih Besar / Sama Dari Total Pembayaran');
@@ -2622,7 +2622,7 @@ function updateStockSaveDraft($data) {
 		}
 		
 
-		mysqli_query( $conn, "DELETE FROM keranjang_draft WHERE keranjang_invoice = $penjualan_invoice2 && keranjang_cabang = $invoice_cabang ");
+		mysqli_query( $conn, "DELETE FROM keranjang_draft WHERE keranjang_invoice = $penjualan_invoice2 AND keranjang_cabang = $invoice_cabang ");
 		return mysqli_affected_rows($conn);
 	}
 }
@@ -2631,28 +2631,28 @@ function hapusDraft($invoice, $cabang, $page) {
 	global $conn;
 
 	if ( $page === "nonfisik" ) :
-		$countDraft = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM keranjang_non_fisik_draft WHERE knfd_invoice = $invoice && knfd_cabang = $cabang"));
+		$countDraft = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM keranjang_non_fisik_draft WHERE knfd_invoice = $invoice AND knfd_cabang = $cabang"));
 
 		if ( $countDraft > 0 ) {
-			mysqli_query( $conn, "DELETE FROM invoice WHERE penjualan_invoice = $invoice && invoice_cabang = $cabang");
+			mysqli_query( $conn, "DELETE FROM invoice WHERE penjualan_invoice = $invoice AND invoice_cabang = $cabang");
 
-			mysqli_query( $conn, "DELETE FROM keranjang_non_fisik_draft WHERE knfd_invoice = $invoice && knfd_cabang = $cabang");
+			mysqli_query( $conn, "DELETE FROM keranjang_non_fisik_draft WHERE knfd_invoice = $invoice AND knfd_cabang = $cabang");
 			return mysqli_affected_rows($conn);
 		} else {
-			mysqli_query( $conn, "DELETE FROM invoice WHERE penjualan_invoice = $invoice && invoice_cabang = $cabang");
+			mysqli_query( $conn, "DELETE FROM invoice WHERE penjualan_invoice = $invoice AND invoice_cabang = $cabang");
 			return mysqli_affected_rows($conn);
 		}	
 
 	else :
-		$countDraft = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM keranjang_draft WHERE keranjang_invoice = $invoice && keranjang_cabang = $cabang"));
+		$countDraft = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM keranjang_draft WHERE keranjang_invoice = $invoice AND keranjang_cabang = $cabang"));
 
 		if ( $countDraft > 0 ) {
-			mysqli_query( $conn, "DELETE FROM invoice WHERE penjualan_invoice = $invoice && invoice_cabang = $cabang");
+			mysqli_query( $conn, "DELETE FROM invoice WHERE penjualan_invoice = $invoice AND invoice_cabang = $cabang");
 
-			mysqli_query( $conn, "DELETE FROM keranjang_draft WHERE keranjang_invoice = $invoice && keranjang_cabang = $cabang");
+			mysqli_query( $conn, "DELETE FROM keranjang_draft WHERE keranjang_invoice = $invoice AND keranjang_cabang = $cabang");
 			return mysqli_affected_rows($conn);
 		} else {
-			mysqli_query( $conn, "DELETE FROM invoice WHERE penjualan_invoice = $invoice && invoice_cabang = $cabang");
+			mysqli_query( $conn, "DELETE FROM invoice WHERE penjualan_invoice = $invoice AND invoice_cabang = $cabang");
 			return mysqli_affected_rows($conn);
 		}	
 	endif;
@@ -2751,17 +2751,17 @@ function hapusPenjualanInvoice($id) {
 
 
 	// Mencari banyak barang SN
-	$barang_option_sn = mysqli_query( $conn, "select barang_option_sn from penjualan where penjualan_invoice = '".$penjualan_invoice."' && barang_option_sn > 0 && penjualan_cabang = '".$invoice_cabang."' ");
+	$barang_option_sn = mysqli_query( $conn, "select barang_option_sn from penjualan where penjualan_invoice = '".$penjualan_invoice."' AND barang_option_sn > 0 AND penjualan_cabang = '".$invoice_cabang."' ");
 	$barang_option_sn = mysqli_num_rows($barang_option_sn);
 
 	// Menghitung data di tabel piutang sesuai No. Invoice
-	$piutang = mysqli_query($conn,"select * from piutang where piutang_invoice = '".$penjualan_invoice."' && piutang_cabang = '".$invoice_cabang."' ");
+	$piutang = mysqli_query($conn,"select * from piutang where piutang_invoice = '".$penjualan_invoice."' AND piutang_cabang = '".$invoice_cabang."' ");
     $jmlPiutang = mysqli_num_rows($piutang);
 
     
 	// Mencari ID SN
 	if ( $barang_option_sn > 0 ) {
-		$barang_sn_id = query("SELECT * FROM penjualan WHERE penjualan_invoice = $penjualan_invoice && barang_option_sn > 0 && penjualan_cabang = $invoice_cabang ");
+		$barang_sn_id = query("SELECT * FROM penjualan WHERE penjualan_invoice = $penjualan_invoice AND barang_option_sn > 0 AND penjualan_cabang = $invoice_cabang ");
 
 		foreach ( $barang_sn_id as $row ) :
 		 	$barang_sn_id = $row['barang_sn_id'];
@@ -2779,21 +2779,21 @@ function hapusPenjualanInvoice($id) {
 
 	// Kondisi Hapus jika terdapat cicilan di tabel Piutang
 	if ( $jmlPiutang > 0 ) {
-		mysqli_query( $conn, "DELETE FROM piutang WHERE piutang_invoice = $penjualan_invoice && piutang_cabang = $invoice_cabang ");
+		mysqli_query( $conn, "DELETE FROM piutang WHERE piutang_invoice = $penjualan_invoice AND piutang_cabang = $invoice_cabang ");
 
 		if ( $invoice_tipe_non_fisik < 1 ) :
-			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice && penjualan_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice AND penjualan_cabang = $invoice_cabang ");
 		else :
-			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' && pbnf_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' AND pbnf_cabang = $invoice_cabang ");
 		endif;
 
 		mysqli_query( $conn, "DELETE FROM invoice WHERE invoice_id = $id");
 	} else {
 	// Kondisi Hapus jika Tanpa cicilan di tabel Piutang
 		if ( $invoice_tipe_non_fisik < 1 ) :
-			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice && penjualan_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice AND penjualan_cabang = $invoice_cabang ");
 		else :
-			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' && pbnf_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' AND pbnf_cabang = $invoice_cabang ");
 		endif;
 
 		mysqli_query( $conn, "DELETE FROM invoice WHERE invoice_id = $id");
@@ -2817,12 +2817,12 @@ function hapusPenjualanInvoiceTarikTunai($id) {
 
 
 	// Menghitung data di tabel piutang sesuai No. Invoice
-	$piutang = mysqli_query($conn,"select * from piutang where piutang_invoice = '".$penjualan_invoice."' && piutang_cabang = '".$invoice_cabang."' ");
+	$piutang = mysqli_query($conn,"select * from piutang where piutang_invoice = '".$penjualan_invoice."' AND piutang_cabang = '".$invoice_cabang."' ");
     $jmlPiutang = mysqli_num_rows($piutang);
 
 
     // Mengembalikan saldo dari transaksi tarik tunai dengan cara mengurangi dalso sebelumnya
-    $tarikTunai = mysqli_query($conn, "SELECT pbnf_provider, pbnf_harga_beli FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' && pbnf_cabang = $invoice_cabang ");
+    $tarikTunai = mysqli_query($conn, "SELECT pbnf_provider, pbnf_harga_beli FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' AND pbnf_cabang = $invoice_cabang ");
     $tarikTunai = mysqli_fetch_array($tarikTunai);
     $pbnf_provider = $tarikTunai['pbnf_provider'];
     $pbnf_harga_beli = $tarikTunai['pbnf_harga_beli'];
@@ -2843,21 +2843,21 @@ function hapusPenjualanInvoiceTarikTunai($id) {
 
 	// Kondisi Hapus jika terdapat cicilan di tabel Piutang
 	if ( $jmlPiutang > 0 ) {
-		mysqli_query( $conn, "DELETE FROM piutang WHERE piutang_invoice = $penjualan_invoice && piutang_cabang = $invoice_cabang ");
+		mysqli_query( $conn, "DELETE FROM piutang WHERE piutang_invoice = $penjualan_invoice AND piutang_cabang = $invoice_cabang ");
 
 		if ( $invoice_tipe_non_fisik < 1 ) :
-			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice && penjualan_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice AND penjualan_cabang = $invoice_cabang ");
 		else :
-			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' && pbnf_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' AND pbnf_cabang = $invoice_cabang ");
 		endif;
 
 		mysqli_query( $conn, "DELETE FROM invoice WHERE invoice_id = $id");
 	} else {
 	// Kondisi Hapus jika Tanpa cicilan di tabel Piutang
 		if ( $invoice_tipe_non_fisik < 1 ) :
-			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice && penjualan_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice AND penjualan_cabang = $invoice_cabang ");
 		else :
-			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' && pbnf_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' AND pbnf_cabang = $invoice_cabang ");
 		endif;
 
 		mysqli_query( $conn, "DELETE FROM invoice WHERE invoice_id = $id");
@@ -2881,12 +2881,12 @@ function hapusPenjualanInvoiceNonFisik($id) {
 
 
 	// Menghitung data di tabel piutang sesuai No. Invoice
-	$piutang = mysqli_query($conn,"select * from piutang where piutang_invoice = '".$penjualan_invoice."' && piutang_cabang = '".$invoice_cabang."' ");
+	$piutang = mysqli_query($conn,"select * from piutang where piutang_invoice = '".$penjualan_invoice."' AND piutang_cabang = '".$invoice_cabang."' ");
     $jmlPiutang = mysqli_num_rows($piutang);
 
 
     // Mengembalikan saldo dari transaksi tarik tunai dengan cara menambah saldo sebelumnya
-    $tarikTunai = query("SELECT * FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' && pbnf_cabang = $invoice_cabang");
+    $tarikTunai = query("SELECT * FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' AND pbnf_cabang = $invoice_cabang");
 
     foreach ( $tarikTunai as $row ) :
     	$pbnf_provider = $row['pbnf_provider'];
@@ -2908,21 +2908,21 @@ function hapusPenjualanInvoiceNonFisik($id) {
 
 	// Kondisi Hapus jika terdapat cicilan di tabel Piutang
 	if ( $jmlPiutang > 0 ) {
-		mysqli_query( $conn, "DELETE FROM piutang WHERE piutang_invoice = $penjualan_invoice && piutang_cabang = $invoice_cabang ");
+		mysqli_query( $conn, "DELETE FROM piutang WHERE piutang_invoice = $penjualan_invoice AND piutang_cabang = $invoice_cabang ");
 
 		if ( $invoice_tipe_non_fisik < 1 ) :
-			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice && penjualan_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice AND penjualan_cabang = $invoice_cabang ");
 		else :
-			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' && pbnf_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' AND pbnf_cabang = $invoice_cabang ");
 		endif;
 
 		mysqli_query( $conn, "DELETE FROM invoice WHERE invoice_id = $id");
 	} else {
 	// Kondisi Hapus jika Tanpa cicilan di tabel Piutang
 		if ( $invoice_tipe_non_fisik < 1 ) :
-			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice && penjualan_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan WHERE penjualan_invoice = $penjualan_invoice AND penjualan_cabang = $invoice_cabang ");
 		else :
-			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' && pbnf_cabang = $invoice_cabang ");
+			mysqli_query( $conn, "DELETE FROM penjualan_barang_non_fisik WHERE pbnf_invoice = '".$penjualan_invoice."' AND pbnf_cabang = $invoice_cabang ");
 		endif;
 
 		mysqli_query( $conn, "DELETE FROM invoice WHERE invoice_id = $id");
@@ -3193,7 +3193,7 @@ function tambahKeranjangPembelianBarcode($data) {
 	$keranjang_cabang   = $data['keranjang_cabang'];
 
 	// Ambil Data Barang berdasarkan Kode Barang 
-	$barang 	= mysqli_query( $conn, "select barang_id, barang_nama from barang where barang_kode = '".$barang_kode."' && barang_cabang = '".$keranjang_cabang."' ");
+	$barang 	= mysqli_query( $conn, "select barang_id, barang_nama from barang where barang_kode = '".$barang_kode."' AND barang_cabang = '".$keranjang_cabang."' ");
     $br 		= mysqli_fetch_array($barang);
 
     $barang_id          = $br['barang_id'];
@@ -3454,21 +3454,21 @@ function hapusPembelianInvoice($id) {
     $invoice_pembelian_cabang  = $pip["invoice_pembelian_cabang"];
 
     // Menghitung data di tabel HUtang sesuai No. Invoice Parent
-	$hutang = mysqli_query($conn,"select * from hutang where hutang_invoice_parent = '".$pembelian_invoice_parent."' && hutang_cabang = '".$invoice_pembelian_cabang."' ");
+	$hutang = mysqli_query($conn,"select * from hutang where hutang_invoice_parent = '".$pembelian_invoice_parent."' AND hutang_cabang = '".$invoice_pembelian_cabang."' ");
     $jmlHutang = mysqli_num_rows($hutang);
 
     if ( $jmlHutang > 0 ) {
-    	mysqli_query( $conn, "DELETE FROM hutang WHERE hutang_invoice_parent = $pembelian_invoice_parent && hutang_cabang = $invoice_pembelian_cabang");
+    	mysqli_query( $conn, "DELETE FROM hutang WHERE hutang_invoice_parent = $pembelian_invoice_parent AND hutang_cabang = $invoice_pembelian_cabang");
 
-    	mysqli_query( $conn, "DELETE FROM pembelian WHERE pembelian_invoice_parent = $pembelian_invoice_parent && pembelian_cabang = $invoice_pembelian_cabang")
+    	mysqli_query( $conn, "DELETE FROM pembelian WHERE pembelian_invoice_parent = $pembelian_invoice_parent AND pembelian_cabang = $invoice_pembelian_cabang")
     	;
 
-		mysqli_query( $conn, "DELETE FROM invoice_pembelian WHERE pembelian_invoice_parent = $pembelian_invoice_parent && invoice_pembelian_cabang = $invoice_pembelian_cabang");
+		mysqli_query( $conn, "DELETE FROM invoice_pembelian WHERE pembelian_invoice_parent = $pembelian_invoice_parent AND invoice_pembelian_cabang = $invoice_pembelian_cabang");
     } else {
-    	mysqli_query( $conn, "DELETE FROM pembelian WHERE pembelian_invoice_parent = $pembelian_invoice_parent && pembelian_cabang = $invoice_pembelian_cabang")
+    	mysqli_query( $conn, "DELETE FROM pembelian WHERE pembelian_invoice_parent = $pembelian_invoice_parent AND pembelian_cabang = $invoice_pembelian_cabang")
     	;
 
-		mysqli_query( $conn, "DELETE FROM invoice_pembelian WHERE pembelian_invoice_parent = $pembelian_invoice_parent && invoice_pembelian_cabang = $invoice_pembelian_cabang");
+		mysqli_query( $conn, "DELETE FROM invoice_pembelian WHERE pembelian_invoice_parent = $pembelian_invoice_parent AND invoice_pembelian_cabang = $invoice_pembelian_cabang");
     }
 
 	return mysqli_affected_rows($conn);
@@ -3592,7 +3592,7 @@ function hapusCicilanPiutang($id) {
     $cabangInvoice 	= $noInvoice["piutang_cabang"];
 
     // Mencari Nilai Bayar di Tabel Invoive
-    $bayarInvoice = mysqli_query ( $conn, "select invoice_id, invoice_bayar, invoice_sub_total from invoice where penjualan_invoice = '".$piutangInvoice."' && invoice_cabang = '".$cabangInvoice."' ");
+    $bayarInvoice = mysqli_query ( $conn, "select invoice_id, invoice_bayar, invoice_sub_total from invoice where penjualan_invoice = '".$piutangInvoice."' AND invoice_cabang = '".$cabangInvoice."' ");
     $bayarInvoice = mysqli_fetch_array($bayarInvoice);
     $invoice_id         = $bayarInvoice['invoice_id'];
     $bayar       		= $bayarInvoice['invoice_bayar'];
@@ -3746,7 +3746,7 @@ function hapusCicilanHutang($id) {
     $cabangInvoice 	 	 = $noInvoice["hutang_cabang"];
 
     // Mencari Nilai Bayar di Tabel Invoive
-    $bayarInvoicePembelian = mysqli_query ( $conn, "select invoice_pembelian_id, invoice_bayar, invoice_total from invoice_pembelian where pembelian_invoice_parent = '".$invoiceParent."' && invoice_pembelian_cabang = '".$cabangInvoice."' ");
+    $bayarInvoicePembelian = mysqli_query ( $conn, "select invoice_pembelian_id, invoice_bayar, invoice_total from invoice_pembelian where pembelian_invoice_parent = '".$invoiceParent."' AND invoice_pembelian_cabang = '".$cabangInvoice."' ");
     $bip 				  		  = mysqli_fetch_array($bayarInvoicePembelian);
     $invoice_pembelian_id         = $bip['invoice_pembelian_id'];
     $bayar       				  = $bip['invoice_bayar'];
@@ -3835,7 +3835,7 @@ function tambahTransferSelectCabang($data) {
 	$tsc_cabang 			= htmlspecialchars($data['tsc_cabang']);
 
 
-	$count = mysqli_query($conn, "select * from transfer_select_cabang where tsc_user_id = ".$tsc_user_id." && tsc_cabang = ".$tsc_cabang." ");
+	$count = mysqli_query($conn, "select * from transfer_select_cabang where tsc_user_id = ".$tsc_user_id." AND tsc_cabang = ".$tsc_cabang." ");
 	$count = mysqli_num_rows($count);
 
 	if ( $count < 1 ) {
@@ -3843,7 +3843,7 @@ function tambahTransferSelectCabang($data) {
 		$query = "INSERT INTO transfer_select_cabang (tsc_cabang_pusat, tsc_cabang_penerima, tsc_user_id, tsc_cabang) VALUES ('$tsc_cabang_pusat', '$tsc_cabang_penerima', '$tsc_user_id', '$tsc_cabang')";
 		mysqli_query($conn, $query);
 	} else {
-		mysqli_query( $conn, "DELETE FROM transfer_select_cabang WHERE tsc_user_id = $tsc_user_id && tsc_cabang = $tsc_cabang");
+		mysqli_query( $conn, "DELETE FROM transfer_select_cabang WHERE tsc_user_id = $tsc_user_id AND tsc_cabang = $tsc_cabang");
 	}
 
 	return mysqli_affected_rows($conn);
@@ -3857,15 +3857,15 @@ function resetTransferSelectCabang($data) {
 	$tsc_cabang 			= htmlspecialchars($data['tsc_cabang']);
 	$tsc_cabang_pusat		= htmlspecialchars($data['tsc_cabang_pusat']);
 
-	$keranjang = mysqli_query($conn,"select * from keranjang_transfer where keranjang_transfer_id_kasir = ".$tsc_user_id." && keranjang_transfer_cabang = ".$tsc_cabang_pusat." ");
+	$keranjang = mysqli_query($conn,"select * from keranjang_transfer where keranjang_transfer_id_kasir = ".$tsc_user_id." AND keranjang_transfer_cabang = ".$tsc_cabang_pusat." ");
     $jmlkeranjang = mysqli_num_rows($keranjang);
 
 
     if ( $jmlkeranjang > 0 ) {
-    	mysqli_query( $conn, "DELETE FROM keranjang_transfer WHERE keranjang_transfer_id_kasir = $tsc_user_id && keranjang_transfer_cabang = $tsc_cabang_pusat");
+    	mysqli_query( $conn, "DELETE FROM keranjang_transfer WHERE keranjang_transfer_id_kasir = $tsc_user_id AND keranjang_transfer_cabang = $tsc_cabang_pusat");
     } 
 
-	mysqli_query( $conn, "DELETE FROM transfer_select_cabang WHERE tsc_user_id = $tsc_user_id && tsc_cabang = $tsc_cabang");
+	mysqli_query( $conn, "DELETE FROM transfer_select_cabang WHERE tsc_user_id = $tsc_user_id AND tsc_cabang = $tsc_cabang");
 
 	return mysqli_affected_rows($conn);
 }
@@ -3891,7 +3891,7 @@ function tambahkeranjangtransfer($data) {
 	$cabang_penerima_stock			= $data['cabang_penerima_stock'];
 
 	// Mencari Data Barang berdasarkan Kode Slug dan cabang
-	$barangTujuan 		= mysqli_query($conn,"select * from barang where barang_kode_slug = '".$barang_kode_slug."' && barang_cabang = ".$keranjang_cabang_tujuan." ");
+	$barangTujuan 		= mysqli_query($conn,"select * from barang where barang_kode_slug = '".$barang_kode_slug."' AND barang_cabang = ".$keranjang_cabang_tujuan." ");
     $jmlBarangTujuan 	= mysqli_num_rows($barangTujuan);
 
   	// Kondisi Jika Cabang Penerima tidak memiliki Produk terkait
@@ -3905,7 +3905,7 @@ function tambahkeranjangtransfer($data) {
   		// Cek STOCK
 		$barang_id_cek = mysqli_num_rows(mysqli_query($conn, "select * from keranjang_transfer where keranjang_id_cek = '$keranjang_id_cek' "));
 		
-		if ( $barang_id_cek > 0 && $keranjang_barang_option_sn < 1 ) {
+		if ( $barang_id_cek > 0 AND $keranjang_barang_option_sn < 1 ) {
 			$keranjangParent = mysqli_query( $conn, "select keranjang_transfer_qty from keranjang_transfer where keranjang_id_cek = '".$keranjang_id_cek."'");
 	        $kp = mysqli_fetch_array($keranjangParent); 
 	        $kp = $kp['keranjang_transfer_qty'];
@@ -3966,7 +3966,7 @@ function tambahKeranjangBarcodeTransfer($data) {
 	$keranjang_cabang   			= $data['keranjang_cabang'];
 
 	// Ambil Data Barang berdasarkan Kode Barang 
-	$barang 	= mysqli_query( $conn, "select barang_id, barang_nama, barang_harga, barang_option_sn from barang where barang_kode = '".$barang_kode."' && barang_cabang = '".$keranjang_cabang."' ");
+	$barang 	= mysqli_query( $conn, "select barang_id, barang_nama, barang_harga, barang_option_sn from barang where barang_kode = '".$barang_kode."' AND barang_cabang = '".$keranjang_cabang."' ");
     $br 		= mysqli_fetch_array($barang);
 
     $barang_id  				= $br["barang_id"];
@@ -3983,7 +3983,7 @@ function tambahKeranjangBarcodeTransfer($data) {
 		// Cek STOCK
 		$barang_id_cek = mysqli_num_rows(mysqli_query($conn, "select * from keranjang_transfer where keranjang_id_cek = '$keranjang_id_cek' "));
 			
-		if ( $barang_id_cek > 0 && $keranjang_barang_option_sn < 1 ) {
+		if ( $barang_id_cek > 0 AND $keranjang_barang_option_sn < 1 ) {
 			$keranjangParent = mysqli_query( $conn, "select keranjang_transfer_qty from keranjang_transfer where keranjang_id_cek = '".$keranjang_id_cek."'");
 	        $kp = mysqli_fetch_array($keranjangParent); 
 	        $kp = $kp['keranjang_transfer_qty'];
@@ -4055,7 +4055,7 @@ function updateSnTransfer($data){
     $barang_sn_desc = $barang_sn_desc['barang_sn_desc'];
 
     // Menghitung jumlah No SN berdasarkan cabang jika ada maka di tolak
-    $barang_sn_count = mysqli_query($conn, "select * from keranjang_transfer where keranjang_sn = '".$barang_sn_desc."' && keranjang_transfer_cabang = '".$keranjang_transfer_cabang."' ");
+    $barang_sn_count = mysqli_query($conn, "select * from keranjang_transfer where keranjang_sn = '".$barang_sn_desc."' AND keranjang_transfer_cabang = '".$keranjang_transfer_cabang."' ");
     $barang_sn_count = mysqli_num_rows($barang_sn_count);
 
     if ( $barang_sn_count > 0 ) {
@@ -4228,12 +4228,12 @@ function prosesTransfer($data) {
 	}
 	
 	// Mencari banyak barang SN
-	$barang_option_sn = mysqli_query( $conn, "select tpk_barang_option_sn from transfer_produk_keluar where tpk_ref = '".$transfer_ref."' && tpk_barang_option_sn > 0 && tpk_cabang = '".$transfer_cabang."' ");
+	$barang_option_sn = mysqli_query( $conn, "select tpk_barang_option_sn from transfer_produk_keluar where tpk_ref = '".$transfer_ref."' AND tpk_barang_option_sn > 0 AND tpk_cabang = '".$transfer_cabang."' ");
 	$barang_option_sn = mysqli_num_rows($barang_option_sn);
     
 	// Mencari ID SN
 	if ( $barang_option_sn > 0 ) {
-		$barang_sn_id = query("SELECT * FROM transfer_produk_keluar WHERE tpk_ref = $transfer_ref && tpk_barang_option_sn > 0 && tpk_cabang = $transfer_cabang ");
+		$barang_sn_id = query("SELECT * FROM transfer_produk_keluar WHERE tpk_ref = $transfer_ref AND tpk_barang_option_sn > 0 AND tpk_cabang = $transfer_cabang ");
 
 		// var_dump($barang_sn_id); die();
 		foreach ( $barang_sn_id as $row ) :
@@ -4251,7 +4251,7 @@ function prosesTransfer($data) {
 	}
 
 	mysqli_query( $conn, "DELETE FROM keranjang_transfer WHERE keranjang_transfer_id_kasir = $transfer_user");
-	mysqli_query( $conn, "DELETE FROM transfer_select_cabang WHERE tsc_user_id = $transfer_user && tsc_cabang = $transfer_id_tipe_keluar");
+	mysqli_query( $conn, "DELETE FROM transfer_select_cabang WHERE tsc_user_id = $transfer_user AND tsc_cabang = $transfer_id_tipe_keluar");
 
 	return mysqli_affected_rows($conn);
 }
@@ -4299,7 +4299,7 @@ function prosesKonfirmasiTransfer($data) {
 	$jumlah = count($tpm_user);
 
 	// Mencari banyak barang SN di tabel transfer_produk_keluar
-	$barang_option_sn_produk_keluar = mysqli_query( $conn, "select tpk_barang_option_sn from transfer_produk_keluar where tpk_ref = '".$transfer_ref."' && tpk_barang_option_sn > 0 && tpk_penerima_cabang = '".$transfer_penerima_cabang."' ");
+	$barang_option_sn_produk_keluar = mysqli_query( $conn, "select tpk_barang_option_sn from transfer_produk_keluar where tpk_ref = '".$transfer_ref."' AND tpk_barang_option_sn > 0 AND tpk_penerima_cabang = '".$transfer_penerima_cabang."' ");
 	$barang_option_sn_produk_keluar = mysqli_num_rows($barang_option_sn_produk_keluar);
 
 	if ( $barang_option_sn_produk_keluar > 0 ) {
@@ -4356,12 +4356,12 @@ function prosesKonfirmasiTransfer($data) {
 			}
 
 			// Mencari banyak barang SN
-			$barang_option_sn = mysqli_query( $conn, "select tpm_barang_option_sn from transfer_produk_masuk where tpm_ref = '".$transfer_ref."' && tpm_barang_option_sn > 0 && tpm_penerima_cabang = '".$transfer_penerima_cabang."' ");
+			$barang_option_sn = mysqli_query( $conn, "select tpm_barang_option_sn from transfer_produk_masuk where tpm_ref = '".$transfer_ref."' AND tpm_barang_option_sn > 0 AND tpm_penerima_cabang = '".$transfer_penerima_cabang."' ");
 			$barang_option_sn = mysqli_num_rows($barang_option_sn);
 
 			// Mencari ID SN
 			if ( $barang_option_sn > 0 ) {
-				$barang_sn_id = query("SELECT * FROM transfer_produk_masuk WHERE tpm_ref = $transfer_ref && tpm_barang_option_sn > 0 && tpm_penerima_cabang = $transfer_penerima_cabang ");
+				$barang_sn_id = query("SELECT * FROM transfer_produk_masuk WHERE tpm_ref = $transfer_ref AND tpm_barang_option_sn > 0 AND tpm_penerima_cabang = $transfer_penerima_cabang ");
 				foreach ( $barang_sn_id as $row ) :
 					$barang_sn_id = $row['tpm_barang_sn_id'];
 					$barang = count($barang_sn_id);
@@ -4482,7 +4482,7 @@ function editLabaBersih($data) {
 				lb_pengeluaran_bensin  				= '$lb_pengeluaran_bensin',
 				lb_pengeluaran_tak_terduga  		= '$lb_pengeluaran_tak_terduga',
 				lb_pengeluaran_lain 				= '$lb_pengeluaran_lain'
-				WHERE lb_id   = $id && lb_cabang = $lb_cabang
+				WHERE lb_id   = $id AND lb_cabang = $lb_cabang
 				";
 
 	mysqli_query($conn, $query);
@@ -4513,12 +4513,12 @@ function tambahStockOpname($data) {
 function hapusStockOpname($id, $sessionCabang) {
 	global $conn;
 
-	$stock_opname_hasil_count = mysqli_query($conn, "SELECT * FROM stock_opname_hasil WHERE soh_stock_opname_id = $id && soh_barang_cabang = $sessionCabang");
+	$stock_opname_hasil_count = mysqli_query($conn, "SELECT * FROM stock_opname_hasil WHERE soh_stock_opname_id = $id AND soh_barang_cabang = $sessionCabang");
 	$stock_opname_hasil_count = mysqli_num_rows($stock_opname_hasil_count);
 
 
 	if ( $stock_opname_hasil_count > 0 ) {
-		mysqli_query( $conn, "DELETE FROM stock_opname_hasil WHERE soh_stock_opname_id = $id && soh_barang_cabang = $sessionCabang");
+		mysqli_query( $conn, "DELETE FROM stock_opname_hasil WHERE soh_stock_opname_id = $id AND soh_barang_cabang = $sessionCabang");
 	}
 
 	mysqli_query( $conn, "DELETE FROM stock_opname WHERE stock_opname_id = $id");
@@ -4542,7 +4542,7 @@ function tambahStockOpnamePerProduk($data) {
 
 	$soh_barang_kode_slug       = str_replace(" ", "-", $soh_barang_kode);
 
-    $barang         = mysqli_query($conn, "SELECT barang_id, barang_stock FROM barang WHERE barang_cabang = $soh_barang_cabang && barang_kode_slug = '".$soh_barang_kode_slug."' ");
+    $barang         = mysqli_query($conn, "SELECT barang_id, barang_stock FROM barang WHERE barang_cabang = $soh_barang_cabang AND barang_kode_slug = '".$soh_barang_kode_slug."' ");
     $barang         = mysqli_fetch_array($barang);
     $barang_id      = $barang['barang_id'];
     $barang_stock   = $barang['barang_stock'];
@@ -4592,7 +4592,7 @@ function editStockOpname($data) {
             stock_opname_user_upload      = '$stock_opname_user_upload',
             stock_opname_date_upload      = '$stock_opname_date_upload',
             stock_opname_datetime_upload  = '$stock_opname_datetime_upload'
-            WHERE stock_opname_id         = $id && stock_opname_cabang = $stock_opname_cabang;
+            WHERE stock_opname_id         = $id AND stock_opname_cabang = $stock_opname_cabang;
             ";
     mysqli_query($conn, $query);
 	return mysqli_affected_rows($conn);
@@ -4668,7 +4668,7 @@ function tambahBarangNonFisik($data) {
 	$bnf_cabang 			= htmlspecialchars($data['bnf_cabang']);
 
 	
-	$bnf_kode_cek = mysqli_num_rows(mysqli_query($conn, "select * from barang_non_fisik where bnf_kode = '".$bnf_kode."'&& bnf_cabang = $bnf_cabang "));
+	$bnf_kode_cek = mysqli_num_rows(mysqli_query($conn, "select * from barang_non_fisik where bnf_kode = '".$bnf_kode."'AND bnf_cabang = $bnf_cabang "));
 
 	if ( $bnf_kode_cek > 0 ) {
 		echo "
@@ -4936,7 +4936,7 @@ function hapusCicilanKasbon($id) {
     $kb_cabang 		= $kb["kb_cabang"];
 
     // Mencari Nilai Bayar
-    $bayar = mysqli_query ( $conn, "select kasbon_total, kasbon_total_cicilan from kasbon where kasbon_id = $kb_kasbon_id && kasbon_cabang = '".$kb_cabang."' ");
+    $bayar = mysqli_query ( $conn, "select kasbon_total, kasbon_total_cicilan from kasbon where kasbon_id = $kb_kasbon_id AND kasbon_cabang = '".$kb_cabang."' ");
     $bayar = mysqli_fetch_array($bayar);
     $kasbon_total         	   = $bayar['kasbon_total'];
     $kasbon_total_cicilan      = $bayar['kasbon_total_cicilan'];
@@ -4973,11 +4973,11 @@ function hapusKasbon($id, $sessionCabang) {
 	global $conn;
 
 	// Mencari data cicilan
-	$count = mysqli_query($conn, "SELECT * FROM kasbon_cicilan WHERE kb_kasbon_id = $id && kb_cabang = $sessionCabang ");
+	$count = mysqli_query($conn, "SELECT * FROM kasbon_cicilan WHERE kb_kasbon_id = $id AND kb_cabang = $sessionCabang ");
 	$count = mysqli_num_rows($count);
 
 	if ( $count > 0 ) {
-		mysqli_query( $conn, "DELETE FROM kasbon_cicilan WHERE kb_kasbon_id = $id && kb_cabang = $sessionCabang  ");
+		mysqli_query( $conn, "DELETE FROM kasbon_cicilan WHERE kb_kasbon_id = $id AND kb_cabang = $sessionCabang  ");
 		mysqli_query( $conn, "DELETE FROM kasbon WHERE kasbon_id = $id");
 		
 	} else {
@@ -4996,7 +4996,7 @@ function tambahKategoriPengeluaran($data) {
 	$pm_cabang = $data['pm_cabang'];
 
 	// Cek Email
-	$email_user_cek = mysqli_num_rows(mysqli_query($conn, "select * from pengeluaran_master where pm_nama = '$pm_nama' && pm_cabang = $pm_cabang "));
+	$email_user_cek = mysqli_num_rows(mysqli_query($conn, "select * from pengeluaran_master where pm_nama = '$pm_nama' AND pm_cabang = $pm_cabang "));
 
 	if ( $email_user_cek > 0 ) {
 		echo "
