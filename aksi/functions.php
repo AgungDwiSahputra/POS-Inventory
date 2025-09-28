@@ -3110,6 +3110,11 @@ function hapusSupplier($id) {
 function tambahKeranjangPembelian($barang_id, $keranjang_nama, $keranjang_harga, $keranjang_id_kasir, $keranjang_qty, $keranjang_cabang, $keranjang_id_cek) {
 	global $conn;
 	
+	// Validasi input
+	if (empty($barang_id) || empty($keranjang_nama) || empty($keranjang_id_kasir) || empty($keranjang_cabang)) {
+		return 0;
+	}
+	
 	// Cek STOCK
 	$barang_id_cek = mysqli_num_rows(mysqli_query($conn, "select * from keranjang_pembelian where keranjang_id_cek = '$keranjang_id_cek' "));
 	
@@ -3123,18 +3128,18 @@ function tambahKeranjangPembelian($barang_id, $keranjang_nama, $keranjang_harga,
 
 		    $query = "UPDATE keranjang_pembelian SET 
 							keranjang_qty   = '$kp'
-							WHERE keranjang_id_cek = $keranjang_id_cek
+							WHERE keranjang_id_cek = '$keranjang_id_cek'
 							";
-			mysqli_query($conn, $query);
+			$result = mysqli_query($conn, $query);
 			
-			return mysqli_affected_rows($conn);
+			return $result ? mysqli_affected_rows($conn) : 0;
 		} else {
 			// query insert data
 			$query = "INSERT INTO keranjang_pembelian (keranjang_nama, keranjang_harga, barang_id, keranjang_qty, keranjang_id_kasir, keranjang_id_cek, keranjang_cabang) VALUES ('$keranjang_nama', '$keranjang_harga', '$barang_id', '$keranjang_qty', '$keranjang_id_kasir', '$keranjang_id_cek', '$keranjang_cabang')";
 			
-			mysqli_query($conn, $query);
+			$result = mysqli_query($conn, $query);
 
-			return mysqli_affected_rows($conn);
+			return $result ? mysqli_affected_rows($conn) : 0;
 		}
 	} else {
 		echo '
@@ -3143,6 +3148,7 @@ function tambahKeranjangPembelian($barang_id, $keranjang_nama, $keranjang_harga,
 				document.location.href = "transaksi-pembelian";
 			</script>
 		';
+		return 0;
 	}
 }
 

@@ -45,7 +45,7 @@
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="user_email" value="<?= $emailSession; ?>" placeholder="email">
+						<input class="input100" type="email" name="user_email" value="<?= $emailSession; ?>" placeholder="email">
 						<span class="focus-input100"></span>
 						<span class="label-input100"></span>
 					</div>

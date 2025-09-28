@@ -330,7 +330,7 @@ $data = query("SELECT * FROM barang WHERE barang_cabang = $sessionCabang ORDER B
     $('#example1 tbody').on('click', '.tblInsert', function() {
       var data = table.row($(this).parents('tr')).data();
       var data0 = data[0];
-      var data0 = btoa(data0);
+      // Tidak perlu btoa() karena data[0] sudah berupa string ID
       window.location.href = "transaksi-pembelian-add?id=" + data0 + "&r=<?= $r; ?>";
     });
 

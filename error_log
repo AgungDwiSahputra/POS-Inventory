@@ -1,0 +1,158 @@
+[27-Sep-2025 13:01:28 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 13:01:28 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 13:01:28 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 13:01:28 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 13:01:28 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/bo.php(2): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 13:02:25 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 13:02:25 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 13:02:25 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 13:02:25 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 13:02:25 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/request-saldo.php(2): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 13:02:26 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 13:02:26 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 13:02:26 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 13:02:26 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 13:02:26 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/request-saldo.php(2): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 13:02:27 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 13:02:27 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 13:02:27 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 13:02:27 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 13:02:27 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/request-saldo.php(2): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 13:02:36 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 13:02:36 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 13:02:36 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 13:02:36 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 13:02:36 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/provider.php(2): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 13:02:37 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 13:02:37 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 13:02:37 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 13:02:37 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 13:02:37 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/provider.php(2): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 13:02:38 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 13:02:38 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 13:02:38 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 13:02:38 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 13:02:38 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/provider.php(2): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 13:37:10 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 13:37:10 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 13:37:10 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 13:37:10 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 13:37:10 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/request-saldo.php(2): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 13:39:07 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add.php on line 50
+[27-Sep-2025 13:39:07 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add.php on line 50
+[27-Sep-2025 14:15:28 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add.php on line 50
+[27-Sep-2025 14:15:28 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add.php on line 50
+[27-Sep-2025 15:04:24 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 15:04:24 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 15:04:24 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 15:04:24 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 15:04:24 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/provider.php(2): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 15:16:12 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add.php on line 50
+[27-Sep-2025 15:16:12 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add.php on line 50
+[27-Sep-2025 15:21:20 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 15:21:20 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 15:21:20 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 15:21:20 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 15:21:20 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add-non-fisik.php(2): include('/home/dekreat1/...')
+#3 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 16:32:44 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 16:32:44 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 16:32:44 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 16:32:44 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 16:32:44 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-non-fisik.php(3): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 20:22:55 Asia/Jakarta] PHP Warning:  Undefined array key "user_level" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 5
+[27-Sep-2025 20:22:55 Asia/Jakarta] PHP Warning:  Undefined array key "user_status" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 6
+[27-Sep-2025 20:22:55 Asia/Jakarta] PHP Warning:  Undefined array key "user_id" in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 17
+[27-Sep-2025 20:22:55 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php on line 19
+[27-Sep-2025 20:22:55 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php:13
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php(13): mysqli_stmt_prepare()
+#1 /home/dekreat1/stagging-pos.dekreatif.id/_header-artibut.php(22): query()
+#2 /home/dekreat1/stagging-pos.dekreatif.id/_header.php(2): include('/home/dekreat1/...')
+#3 /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung.php(2): include('/home/dekreat1/...')
+#4 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/aksi/functions.php on line 13
+[27-Sep-2025 20:57:27 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add.php on line 50
+[27-Sep-2025 20:57:27 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add.php on line 50
+[27-Sep-2025 22:08:14 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'dekreat1_stagging-pos.sub_kategori' doesn't exist in /home/dekreat1/stagging-pos.dekreatif.id/stok.php:127
+Stack trace:
+#0 /home/dekreat1/stagging-pos.dekreatif.id/stok.php(127): mysqli->query()
+#1 {main}
+  thrown in /home/dekreat1/stagging-pos.dekreatif.id/stok.php on line 127
+[27-Sep-2025 22:09:46 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add.php on line 50
+[27-Sep-2025 22:09:46 Asia/Jakarta] PHP Warning:  Trying to access array offset on null in /home/dekreat1/stagging-pos.dekreatif.id/beli-langsung-add.php on line 50
