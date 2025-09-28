@@ -831,30 +831,49 @@ function tambahKeranjang($keranjang_cabang,
 		return mysqli_affected_rows($conn);
 
 	} else {
-		// query insert data
-		$query = "INSERT INTO keranjang VALUES ('', 
-		'$keranjang_nama', 
-		'$keranjang_harga_beli', 
-		'$keranjang_harga',
-		'$keranjang_harga', 
-		'0',
-		'$keranjang_satuan', 
-		'$barang_id', 
-		'$barang_kode_slug', 
-		'$keranjang_qty', 
-		'$keranjang_qty', 
-		'$keranjang_konversi_isi', 
-		'$keranjang_barang_sn_id', 
-		'$keranjang_barang_option_sn', 
-		'$keranjang_sn', 
-		'$keranjang_id_kasir', 
-		'$keranjang_id_cek', 
-		'$customer', 
-		'$keranjang_cabang')";
+		// query insert data dengan semua kolom yang sesuai struktur tabel
+		$query = "INSERT INTO keranjang (
+			keranjang_nama, 
+			keranjang_harga_beli, 
+			keranjang_harga,
+			keranjang_harga_parent, 
+			keranjang_harga_edit,
+			keranjang_satuan, 
+			barang_id, 
+			barang_kode_slug, 
+			keranjang_qty, 
+			keranjang_qty_view, 
+			keranjang_konversi_isi, 
+			keranjang_barang_sn_id, 
+			keranjang_barang_option_sn, 
+			keranjang_sn, 
+			keranjang_id_kasir, 
+			keranjang_id_cek, 
+			keranjang_tipe_customer, 
+			keranjang_cabang
+		) VALUES (
+			'$keranjang_nama', 
+			'$keranjang_harga_beli', 
+			'$keranjang_harga',
+			'$keranjang_harga', 
+			'0',
+			'$keranjang_satuan', 
+			'$barang_id', 
+			'$barang_kode_slug', 
+			'$keranjang_qty', 
+			'$keranjang_qty', 
+			'$keranjang_konversi_isi', 
+			'$keranjang_barang_sn_id', 
+			'$keranjang_barang_option_sn', 
+			'$keranjang_sn', 
+			'$keranjang_id_kasir', 
+			'$keranjang_id_cek', 
+			'$customer', 
+			'$keranjang_cabang'
+		)";
 		
-		mysqli_query($conn, $query);
-
-		return mysqli_affected_rows($conn);
+		$result = mysqli_query($conn, $query);
+		return $result ? mysqli_affected_rows($conn) : 0;
 	}
 }
 
@@ -901,31 +920,52 @@ function tambahKeranjangDraft($keranjang_cabang,
 		return mysqli_affected_rows($conn);
 
 	} else {
-		// query insert data
-		$query = "INSERT INTO keranjang_draft VALUES ('', 
-		'$keranjang_nama', 
-		'$keranjang_harga_beli', 
-		'$keranjang_harga',
-		'$keranjang_harga', 
-		'0', 
-		'$keranjang_satuan', 
-		'$barang_id', 
-		'$barang_kode_slug', 
-		'$keranjang_qty', 
-		'$keranjang_qty', 
-		'$keranjang_konversi_isi', 
-		'$keranjang_barang_sn_id', 
-		'$keranjang_barang_option_sn', 
-		'$keranjang_sn', 
-		'$keranjang_id_kasir', 
-		'$keranjang_id_cek', 
-		'$customer', 
-		'1',
-		'$invoice',
-		'$keranjang_cabang')";
-		mysqli_query($conn, $query);
-
-		return mysqli_affected_rows($conn);
+		// query insert data dengan semua kolom yang sesuai struktur tabel
+		$query = "INSERT INTO keranjang_draft (
+			keranjang_nama, 
+			keranjang_harga_beli, 
+			keranjang_harga,
+			keranjang_harga_parent, 
+			keranjang_harga_edit,
+			keranjang_satuan, 
+			barang_id, 
+			barang_kode_slug, 
+			keranjang_qty, 
+			keranjang_qty_view, 
+			keranjang_konversi_isi, 
+			keranjang_barang_sn_id, 
+			keranjang_barang_option_sn, 
+			keranjang_sn, 
+			keranjang_id_kasir, 
+			keranjang_id_cek, 
+			keranjang_tipe_customer, 
+			keranjang_draft_status,
+			keranjang_invoice,
+			keranjang_cabang
+		) VALUES (
+			'$keranjang_nama', 
+			'$keranjang_harga_beli', 
+			'$keranjang_harga',
+			'$keranjang_harga', 
+			'0', 
+			'$keranjang_satuan', 
+			'$barang_id', 
+			'$barang_kode_slug', 
+			'$keranjang_qty', 
+			'$keranjang_qty', 
+			'$keranjang_konversi_isi', 
+			'$keranjang_barang_sn_id', 
+			'$keranjang_barang_option_sn', 
+			'$keranjang_sn', 
+			'$keranjang_id_kasir', 
+			'$keranjang_id_cek', 
+			'$customer', 
+			'1',
+			'$invoice',
+			'$keranjang_cabang'
+		)";
+		$result = mysqli_query($conn, $query);
+		return $result ? mysqli_affected_rows($conn) : 0;
 	}
 }
 
@@ -3407,8 +3447,6 @@ function updateInvoicePembelian($data) {
 
 function hapusPembelianInvoice($id) {
 	global $conn;
-
-	$id = $id;
 
 	$pembelian_invoice_parent = mysqli_query( $conn, "select pembelian_invoice_parent, invoice_pembelian_cabang from invoice_pembelian where invoice_pembelian_id = '".$id."'");
     $pip = mysqli_fetch_array($pembelian_invoice_parent); 
