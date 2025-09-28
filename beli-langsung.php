@@ -58,7 +58,7 @@ error_reporting(0);
 $inv = $_POST["penjualan_invoice2"];
 if( isset($_POST["updateStock"]) ){
   // var_dump($_POST);
-  $sql = mysqli_query($conn, "SELECT * FROM invoice WHERE penjualan_invoice='$inv' AND invoice_cabang = '$sessionCabang' ") or die (mysqli_error($conn));
+  $sql = mysqli_query($conn, "SELECT * FROM invoice WHERE penjualan_invoice='$inv' && invoice_cabang = '$sessionCabang' ") or die (mysqli_error($conn));
 
   $hasilquery = mysqli_num_rows($sql);
 
@@ -90,7 +90,7 @@ if( isset($_POST["updateStock"]) ){
 <?php 
 if( isset($_POST["updateStockDraft"]) ){
   // var_dump($_POST);
-  $sql = mysqli_query($conn, "SELECT * FROM invoice WHERE penjualan_invoice='$inv' AND invoice_cabang = '$sessionCabang' ") or die (mysqli_error($conn));
+  $sql = mysqli_query($conn, "SELECT * FROM invoice WHERE penjualan_invoice='$inv' && invoice_cabang = '$sessionCabang' ") or die (mysqli_error($conn));
 
   $hasilquery = mysqli_num_rows($sql);
 
@@ -193,7 +193,7 @@ if( isset($_POST["updateStockDraft"]) ){
                     </div>
                     <div class="modal-body">
                       <?php  
-                          $draft = query("SELECT * FROM invoice WHERE invoice_draft = 1 AND invoice_tipe_non_fisik = 0 AND invoice_kasir = $userId AND invoice_cabang = $sessionCabang ORDER BY invoice_id DESC");
+                          $draft = query("SELECT * FROM invoice WHERE invoice_draft = 1 && invoice_tipe_non_fisik = 0 && invoice_kasir = $userId && invoice_cabang = $sessionCabang ORDER BY invoice_id DESC");
                       ?>
                       <div class="table-auto">
                         <table id="example7" class="table table-bordered table-striped">
@@ -269,14 +269,14 @@ if( isset($_POST["updateStockDraft"]) ){
     <section class="content">
     <?php  
       $userId = $_SESSION['user_id'];
-      $keranjang = query("SELECT * FROM keranjang WHERE keranjang_id_kasir = $userId AND keranjang_tipe_customer = $tipeHarga AND keranjang_cabang = $sessionCabang ORDER BY keranjang_id ASC");
+      $keranjang = query("SELECT * FROM keranjang WHERE keranjang_id_kasir = $userId && keranjang_tipe_customer = $tipeHarga && keranjang_cabang = $sessionCabang ORDER BY keranjang_id ASC");
 
       $countInvoice = mysqli_query($conn, "select * from invoice where invoice_cabang = ".$sessionCabang." ");
       $countInvoice = mysqli_num_rows($countInvoice);
       if ( $countInvoice < 1 ) {
         $jmlPenjualan1 = 0;
       } else {
-        $penjualan = query("SELECT * FROM invoice WHERE invoice_cabang = $sessionCabang ORDER BY invoice_id DESC lIMIT 1")[0];
+        $penjualan = query("SELECT * FROM invoice WHERE invoice_cabang = $sessionCabang ORDER BY invoice_id DESC LIMIT 1")[0];
         $jmlPenjualan1 = $penjualan['penjualan_invoice_count'];
       }
       $jmlPenjualan1 = $jmlPenjualan1 + 1;
@@ -430,7 +430,7 @@ if( isset($_POST["updateStockDraft"]) ){
                               <?php } ?>
 
                               <?php  
-                                $customer = query("SELECT * FROM customer WHERE customer_cabang = $sessionCabang AND customer_status = 1 AND customer_category = $tipeHarga ORDER BY customer_id DESC ");
+                                $customer = query("SELECT * FROM customer WHERE customer_cabang = $sessionCabang && customer_status = 1 && customer_category = $tipeHarga ORDER BY customer_id DESC ");
                               ?>
                               <?php foreach ( $customer as $ctr ) : ?>
                                 <?php if ( $ctr['customer_id'] > 1 && $ctr['customer_nama'] !== "Customer Umum" ) { ?>
@@ -462,7 +462,7 @@ if( isset($_POST["updateStockDraft"]) ){
                               <?php } ?>
                               <option value="0">Tanpa Kurir</option>
                               <?php  
-                                $kurir = query("SELECT * FROM user WHERE user_level = 'kurir' AND user_cabang = $sessionCabang AND user_status = '1' ORDER BY user_id DESC ");
+                                $kurir = query("SELECT * FROM user WHERE user_level = 'kurir' && user_cabang = $sessionCabang && user_status = '1' ORDER BY user_id DESC ");
                               ?>
                               <?php foreach ( $kurir as $row ) : ?>
                                 <option value="<?= $row['user_id']; ?>">
@@ -707,7 +707,8 @@ if( isset($_POST["updateStockDraft"]) ){
                       <div class="payment">
                         <?php  
                             $idKasirKeranjang = $_SESSION['user_id'];
-                            $dataSn = mysqli_query($conn,"select * from keranjang where keranjang_barang_option_sn > 0 AND keranjang_barang_sn_id < 1 AND keranjang_sn = 0 AND keranjang_cabang = $sessionCabang AND keranjang_id_kasir = $idKasirKeranjang");
+                            $dataSn = mysqli_query($conn,"select * from keranjang where keranjang_barang_option_sn > 0 && keranjang_barang_sn_id < 1 && keranjang_sn = 0 && keranjang_cabang = $sessionCabang && keranjang_id_kasir = $idKasirKeranjang");
+                            $jmlDataSn = mysqli_num_rows($dataSn);
                             ?>
                             <?php if ( $jmlDataSn < 1 ) { ?>
                                 <button class="btn btn-danger" type="submit" name="updateStockDraft">Transaksi Pending <i class="fa fa-file-o"></i></button>
@@ -876,7 +877,7 @@ if( isset($_POST["updateStockDraft"]) ){
             var data = table.row( $(this).parents('tr')).data();
             var data0 = data[0];
             var data0 = btoa(data0);
-            window.location.href = "beli-langsung-add?id="+ data0 + "&customer=<?= $_GET['customer']; ?>&r=<?= $r; ?>";
+            window.location.href = "beli-langsung-add?id="+ data0 + "&customer=<?= $_GET['customer']; ?>&r=<?= isset($r) ? $r : 0; ?>";
         });
 
     });
