@@ -1,8 +1,22 @@
 <?php
+// Start output buffering to prevent any output before redirects
+ob_start();
+
 include 'functions.php';
 
 // Cek apakah form sudah di-submit
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    ob_end_clean();
+    echo"
+        <script>
+            alert('Invalid request method!');
+            window.location='../';
+        </script>";
+    exit;
+}
+
 if (!isset($_POST['user_email']) || !isset($_POST['user_password'])) {
+    ob_end_clean();
     echo"
         <script>
             alert('Email dan Password harus diisi!');
@@ -13,6 +27,7 @@ if (!isset($_POST['user_email']) || !isset($_POST['user_password'])) {
 
 // Cek apakah email dan password tidak kosong
 if (empty($_POST['user_email']) || empty($_POST['user_password'])) {
+    ob_end_clean();
     echo"
         <script>
             alert('Email dan Password tidak boleh kosong!');
@@ -24,6 +39,17 @@ if (empty($_POST['user_email']) || empty($_POST['user_password'])) {
 setcookie("emailPos", base64_encode($_POST['user_email']), time() + 31536000, "/");
 setcookie("passPos", base64_encode($_POST['user_password']), time() + 31536000, "/");
 
+// Cek database connection
+if (!$conn) {
+    ob_end_clean();
+    echo"
+        <script>
+            alert('Database connection failed!');
+            window.location='../';
+        </script>";
+    exit;
+}
+
 $email    = mysqli_real_escape_string($conn, $_POST['user_email']);
 $password = md5(md5(mysqli_real_escape_string($conn, $_POST['user_password'])));
 
@@ -31,6 +57,17 @@ $password = md5(md5(mysqli_real_escape_string($conn, $_POST['user_password'])));
 error_log("Login attempt - Email: " . $email . ", Password: " . substr($password, 0, 10) . "...");
 
 $cek = $conn->query("SELECT * FROM user WHERE user_email='$email' AND user_password='$password'");
+
+// Cek apakah query berhasil
+if (!$cek) {
+    ob_end_clean();
+    echo"
+        <script>
+            alert('Database query failed: " . mysqli_error($conn) . "');
+            window.location='../';
+        </script>";
+    exit;
+}
 
 // Debug: Log hasil query
 error_log("Query result - Rows: " . $cek->num_rows);
@@ -51,17 +88,19 @@ if($cek->num_rows > 0)
 	// Debug: Log session data
 	error_log("Login successful - User ID: " . $r['user_id'] . ", Level: " . $r['user_level'] . ", Cabang: " . $r['user_cabang']);
 	
-	echo"<script>
-			window.location='../bo';
-		</script>";
+	ob_end_clean();
+	header("Location: ../bo");
+	exit;
 }else{
 	// Debug: Log failed login
 	error_log("Login failed - Email: " . $email);
 	
+	ob_end_clean();
 	echo"
 		<script>
 			alert('Email & Password Salah !!');
 			window.location='../';
 		</script>";
+	exit;
 }
 ?>
